@@ -1,0 +1,71 @@
+const dotenv = require('dotenv')
+const axios = require('axios')
+const Stomp = require('stompjs')
+const dayjs = require('dayjs')
+const makeID = require('./utils/makeID')
+const { ids, headers } = require('./utils/base')
+
+dotenv.config({ path: "./config/config.env" });
+
+const db_scada = require("./config/db-mssql/scada");
+
+let id = makeID(20)
+let tagToID = {}
+let values = {}
+
+
+async function init() {
+
+    for (let i = 0; i < ids.length; i++) {
+        let res = await axios(`https://tmservice.erdenetmc.mn/api/v1/signals/id/${ids[i]}`)
+        const tag = res.data.data.tagName.trim()
+        if (tag) {
+            tagToID[tag] = ids[i];
+            console.log(tag + '-->' + tagToID[tag])
+
+            res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`)
+            if (res.data[0]) {
+                values[ids[i]] = JSON.parse(res.data[0]).d
+                console.log(ids[i] + ' ==> ' + values[ids[i]])
+            }
+            else
+                values[ids[i]] = 0
+        }
+    }
+
+    const on_connect = () => {
+
+        console.warn('WebSocket connected');
+
+        for (var tag in tagToID) {
+            axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${tag}`)
+                .then(data => {
+                    client.subscribe("/amq/queue/temp_" + id, message => {
+                        const json = JSON.parse(message.body)
+                        json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
+                        json.tag = json.tag.substring(5, json.tag.length).replace('.', '_')
+                        console.log(json)
+                        values[tagToID[json.tag]] = parseFloat(json.d)
+                    })
+                })
+                .catch(err => console.log(err.message))
+        }
+    }
+    const on_error = error => {
+        console.warn('WebSocket connection closed for Error');
+        console.log(error)
+    }
+
+    const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws')
+    client.connect(headers, on_connect, on_error)
+
+    setInterval(() => {
+        let now = dayjs()
+        db_scada.Last_24Hour_AI_Graphic_m
+            .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...values })
+            .then(r => console.log('inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
+            .catch(err => console.log(err.message))
+    }, 1000)
+}
+
+init()
