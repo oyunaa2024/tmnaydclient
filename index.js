@@ -17,7 +17,7 @@ let values = {}
 async function init() {
 
     for (let i = 0; i < ids.length; i++) {
-        let res = await axios(`https://tmservice.erdenetmc.mn/api/v1/signals/id/${ids[i]}`)
+        let res = await axios(`http://localhost:8888/api/v1/signals/id/${ids[i]}`)
         const tag = res.data.data.tagName.trim()
         if (tag) {
             tagToID[tag] = ids[i];
