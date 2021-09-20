@@ -12,6 +12,10 @@ const db_scada = require("./config/db-mssql/scada");
 let id = makeID(20)
 let tagToID = {}
 let values = {}
+// values = {
+//     20000023:5600,
+//     2000002: 4.5
+// }
 
 
 async function init() {
