@@ -67,7 +67,6 @@ async function init() {
         for(let key in values)
             sum[key] += values[key]
 
-        console.log(sum)
         count++
 
         if(new Date().getSeconds() == 1) {
