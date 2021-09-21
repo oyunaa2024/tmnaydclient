@@ -12,10 +12,8 @@ const db_scada = require("./config/db-mssql/scada");
 let id = makeID(20)
 let tagToID = {}
 let values = {}
-// values = {
-//     20000023:5600,
-//     2000002: 4.5
-// }
+let sum = {}
+let count = 0
 
 
 async function init() {
@@ -24,12 +22,13 @@ async function init() {
         let res = await axios(`http://localhost:8888/api/v1/signals/id/${ids[i]}`)
         const tag = res.data.data.tagName.trim()
         if (tag) {
-            tagToID[tag] = ids[i];
+            tagToID[tag] = ids[i]
             console.log(tag + '-->' + tagToID[tag])
 
             res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`)
             if (res.data[0]) {
                 values[ids[i]] = JSON.parse(res.data[0]).d
+                sum[ids[i]] = 0
                 console.log(ids[i] + ' ==> ' + values[ids[i]])
             }
             else
@@ -65,10 +64,27 @@ async function init() {
 
     setInterval(() => {
         let now = dayjs()
-        db_scada.Last_24Hour_AI_Graphic_m
-            .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...values })
-            .then(r => console.log('inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
+        for(let key in values)
+            sum[key] += values[key]
+
+        console.log(sum)
+        count++
+
+        if(new Date().getSeconds() == 1) {
+
+            for(let key in values)
+              sum[key] = sum[key] / count
+
+            db_scada.Last_24Hour_AI_Graphic_m
+            .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
+            .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
             .catch(err => console.log(err.message))
+
+            for(let key in values)
+              sum[key] = 0
+
+            count = 0
+        }
     }, 1000)
 }
 
