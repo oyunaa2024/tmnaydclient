@@ -3,7 +3,7 @@ const axios = require('axios')
 const Stomp = require('stompjs')
 const dayjs = require('dayjs')
 const makeID = require('./utils/makeID')
-const { ids, headers, idsTest } = require('./utils/base')
+const { ids, headers } = require('./utils/base')
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -13,22 +13,22 @@ let id = makeID(20), tagToID = {}, values = {}, sum = {}, count = 0
 
 async function init() {
 
-    for (let i = 0; i < idsTest.length; i++) {
-        let res = await axios(`http://localhost:8888/api/v1/signals/id/${idsTest[i]}`)
+    for (let i = 0; i < ids.length; i++) {
+        let res = await axios(`http://localhost:8888/api/v1/signals/id/${ids[i]}`)
         const tag = res.data.data.tagName.trim()
         if (tag) {
-            tagToID[tag] = idsTest[i]
+            tagToID[tag] = ids[i]
             console.log(tag + '-->' + tagToID[tag])
 
             res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`)
             console.log(res.data)
             if (res.data[0]) {
-                values[idsTest[i]] = JSON.parse(res.data[0]).d
-                sum[idsTest[i]] = 0
-                console.log(idsTest[i] + ' ==> ' + values[idsTest[i]])
+                values[ids[i]] = JSON.parse(res.data[0]).d
+                sum[ids[i]] = 0
+                console.log(ids[i] + ' ==> ' + values[ids[i]])
             }
             else {
-                values[idsTest[i]] = 0
+                values[ids[i]] = 0
                 console.log(`False tag is '${tag}'' res.data[0] ==> ${res.data[0]}`)
             }
                 
@@ -46,7 +46,7 @@ async function init() {
                         const json = JSON.parse(message.body)
                         json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
                         json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
-                        console.log(json)
+                        //console.log(json)
                         values[tagToID[json.tag]] = parseFloat(json.d)
                     })
                 })
