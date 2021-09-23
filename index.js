@@ -3,36 +3,35 @@ const axios = require('axios')
 const Stomp = require('stompjs')
 const dayjs = require('dayjs')
 const makeID = require('./utils/makeID')
-const { ids, headers } = require('./utils/base')
+const { ids, headers, idsTest } = require('./utils/base')
 
 dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
 
-let id = makeID(20)
-let tagToID = {}
-let values = {}
-let sum = {}
-let count = 0
-
+let id = makeID(20), tagToID = {}, values = {}, sum = {}, count = 0
 
 async function init() {
 
-    for (let i = 0; i < ids.length; i++) {
-        let res = await axios(`http://localhost:8888/api/v1/signals/id/${ids[i]}`)
+    for (let i = 0; i < idsTest.length; i++) {
+        let res = await axios(`http://localhost:8888/api/v1/signals/id/${idsTest[i]}`)
         const tag = res.data.data.tagName.trim()
         if (tag) {
-            tagToID[tag] = ids[i]
+            tagToID[tag] = idsTest[i]
             console.log(tag + '-->' + tagToID[tag])
 
             res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`)
+            console.log(res.data)
             if (res.data[0]) {
-                values[ids[i]] = JSON.parse(res.data[0]).d
-                sum[ids[i]] = 0
-                console.log(ids[i] + ' ==> ' + values[ids[i]])
+                values[idsTest[i]] = JSON.parse(res.data[0]).d
+                sum[idsTest[i]] = 0
+                console.log(idsTest[i] + ' ==> ' + values[idsTest[i]])
             }
-            else
-                values[ids[i]] = 0
+            else {
+                values[idsTest[i]] = 0
+                console.log(`False tag is '${tag}'' res.data[0] ==> ${res.data[0]}`)
+            }
+                
         }
     }
 
@@ -69,15 +68,20 @@ async function init() {
 
         count++
 
-        if(new Date().getSeconds() == 1) {
+        console.log('------------->', count)
+
+        if(new Date().getSeconds() == 0) {
 
             for(let key in values)
               sum[key] = sum[key] / count
 
-            db_scada.Last_24Hour_AI_Graphic_m
-            .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
-            .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
-            .catch(err => console.log(err.message))
+              console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss'))
+              console.log(`Count ==> ${count}`)
+
+            // db_scada.Last_24Hour_AI_Graphic_m
+            // .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
+            // .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
+            // .catch(err => console.log(err.message))
 
             for(let key in values)
               sum[key] = 0
