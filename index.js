@@ -68,8 +68,6 @@ async function init() {
 
         count++
 
-        console.log('------------->', count)
-
         if(new Date().getSeconds() == 0) {
 
             for(let key in values)
@@ -78,10 +76,10 @@ async function init() {
               console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss'))
               console.log(`Count ==> ${count}`)
 
-            // db_scada.Last_24Hour_AI_Graphic_m
-            // .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
-            // .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
-            // .catch(err => console.log(err.message))
+            db_scada.Last_24Hour_AI_Graphic_m
+            .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
+            .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
+            .catch(err => console.log(err.message))
 
             for(let key in values)
               sum[key] = 0
