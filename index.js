@@ -46,7 +46,7 @@ async function init() {
                         const json = JSON.parse(message.body)
                         json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
                         json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
-                        //console.log(json)
+                        console.log(json)
                         values[tagToID[json.tag]] = parseFloat(json.d)
                     })
                 })
