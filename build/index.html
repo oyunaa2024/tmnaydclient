@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon" />
+    <title>Телемеханик</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <img src="img/tm_logo.png" alt="Logo" class="header__logo" />
+        <form class="search">
+          <input
+            type="text"
+            class="search__field"
+            placeholder="IP хаяг ..."
+          />
+          <button class="btn search__btn">
+            <svg class="search__icon">
+              <use href="img/icons.svg#icon-target"></use>
+            </svg>
+            <span>Шалгах</span>
+          </button>
+        </form>
+        <div class="likes">
+          <div class="likes__field">
+            <svg class="likes__icon">
+              <!-- <use href="img/icons.svg#icon-heart"></use> -->
+              <use href="img/icons.svg#icon-dron"></use>
+            </svg>
+          </div>
+          <!-- <div class="likes__panel">
+            <ul class="likes__list">
+              
+                <li>
+                    <a class="likes__link" href="#23456">
+                        <figure class="likes__fig">
+                            <img src="img/test-1.jpg" alt="Test">
+                        </figure>
+                        <div class="likes__data">
+                            <h4 class="likes__name">Pasta with Tomato ...</h4>
+                            <p class="likes__author">The Pioneer Woman</p>
+                        </div>
+                    </a>
+                </li>
+               
+            </ul>
+          </div> -->
+        </div>
+      </header>
+
+      <div class="results">
+        <ul class="results__list">
+     
+          <!--
+                <li>
+                    <a class="results__link results__link--active" href="#23456">
+                        <figure class="results__fig">
+                            <img src="img/test-1.jpg" alt="Test">
+                        </figure>
+                        <div class="results__data">
+                            <h4 class="results__name">Pasta with Tomato ...</h4>
+                            <p class="results__author">The Pioneer Woman</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a class="results__link" href="#76767">
+                        <figure class="results__fig">
+                            <img src="img/test-2.jpg" alt="Test">
+                        </figure>
+                        <div class="results__data">
+                            <h4 class="results__name">Pasta Salad with ...</h4>
+                            <p class="results__author">Spicy Perspective</p>
+                        </div>
+                    </a>
+                </li>
+                -->
+        </ul>
+
+        <div class="results__pages">
+                <!-- <button class="btn-inline results__btn--prev">
+                    <svg class="search__icon">
+                        <use href="img/icons.svg#icon-triangle-left"></use>
+                    </svg>
+                    <span>Хуудас 1</span>
+                </button>
+                <button class="btn-inline results__btn--next">
+                    <span>Хуудас 3</span>
+                    <svg class="search__icon">
+                        <use href="img/icons.svg#icon-triangle-right"></use>
+                    </svg>
+                </button> -->
+        </div>
+      </div>
+
+      <div class="recipe" style="padding-top: 40px;">
+        <div style="padding: 10px 25px; font-size: 12px;">
+            <h4 style="margin-bottom: 5px;">Апп-н тухай:</h4>
+            <p style="text-align: justify; margin-bottom: 20px;">Энэхүү апп нь скада сүлжээний төхөөрөмжүүд болон бусад IP сүлжээнд ажилладаг төхөөрөмжүүдийг active эсвэл inactive байгааг PING хүсэлт илгээн хялбар байдлаар шалгадаг.</p>
+            <h4 style="margin-bottom: 5px;">Апп ашиглах заавар:</h4>
+            <p style="text-align: justify;">IP хаяг гэсэн хэсэгт сүлжээний хаяг эсвэл домайн нэрийг бичиж шалгах товч дээр дарна. Мөн ангилал хэсгээс скада сүлжээний төхөөрөмжүүдийг сонгох боломжтой.</p>
+        </div>
+        <br>
+      </div>
+
+      <div class="shopping">
+        <h2 class="heading-2">Ангилал</h2>
+        <ul class="shopping__list">
+            <li>
+                <a id="kp" class="shopping__item results__link" href="#">
+                    <figure class="results__fig">
+                        <img src="https://ui-avatars.com/api/?name=KP" alt="Test">
+                    </figure>
+                    <div class="results__data">
+                        <h4 class="results__name">Хяналтын цэгүүд</h4>
+                        <p class="results__author">PLC</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a id="server" class="shopping__item results__link" href="#">
+                    <figure class="results__fig">
+                        <!-- <img src="img/test-1.jpg" alt="Test"> -->
+                        <img src="https://ui-avatars.com/api/?name=Se" alt="Test">
+                    </figure>
+                    <div class="results__data">
+                        <h4 class="results__name">Серверүүд</h4>
+                        <!-- <p class="results__author">Хяналтын цэг</p> -->
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a id="ppds_meter" class="shopping__item results__link" href="#">
+                    <figure class="results__fig">
+                        <!-- <img src="img/test-1.jpg" alt="Test"> -->
+                        <img src="https://ui-avatars.com/api/?name=Pp" alt="Test">
+                    </figure>
+                    <div class="results__data">
+                        <h4 class="results__name">PPDS</h4>
+                        <p class="results__author">Тоолуур</p>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a id="ppds_pqm" class="shopping__item results__link" href="#">
+                    <figure class="results__fig">
+                        <img src="https://ui-avatars.com/api/?name=Pp" alt="Test">
+                    </figure>
+                    <div class="results__data">
+                        <h4 class="results__name">PPDS</h4>
+                        <p class="results__author">PQMII</p>
+                    </div>
+                </a>
+            </li>
+          
+          <!--
+                <li class="shopping__item">
+                    <div class="shopping__count">
+                        <input type="number" value="500" step="100">
+                        <p>g</p>
+                    </div>
+                    <p class="shopping__description">Pasta</p>
+                    <button class="shopping__delete btn-tiny">
+                        <svg>
+                            <use href="img/icons.svg#icon-circle-with-cross"></use>
+                        </svg>
+                    </button>
+                </li>
+
+                <li class="shopping__item">
+                    <div class="shopping__count">
+                        <input type="number" value="0.5" step="0.1">
+                        <p>cup</p>
+                    </div>
+                    <p class="shopping__description">Ricotta cheese</p>
+                    <button class="shopping__delete btn-tiny">
+                        <svg>
+                            <use href="img/icons.svg#icon-circle-with-cross"></use>
+                        </svg>
+                    </button>
+                </li>                
+                -->
+        </ul>
+      </div>
+    </div>
+  <script type="text/javascript" src="js/main.js"></script></body>
+</html>
