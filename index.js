@@ -29,11 +29,11 @@ async function init() {
 
                 if (res.data[0]) {
                     values[ids[i]] = JSON.parse(res.data[0]).d
-                    console.log(`Анхны утга : ${values[ids[i]]}`)
-                    console.log(`"values" обьектын утга =>`, values)
+                    // console.log(`Анхны утга : ${values[ids[i]]}`)
+                    // console.log(`"values" обьектын утга =>`, values)
 
                     sum[ids[i]] = 0
-                    console.log(`"sum" обьектын утга =>`, sum)
+                    // console.log(`"sum" обьектын утга =>`, sum)
                     // console.log(ids[i] + ' ==> ' + values[ids[i]])
                 }
                 else {
@@ -66,7 +66,7 @@ async function init() {
                 json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
                 json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
                 values[tagToID[json.tag]] = json.d
-                if(json.d == 0 || json.d == 0.0)
+                if(json.d === 0 || json.d === 0.0)
                    console.log("================================= Zero value ==================================>", json)
             })
         }
@@ -97,10 +97,10 @@ async function init() {
 
                 let now = dayjs();
 
-                 db_scada.Last_24Hour_AI_Graphic_m
-                    .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
-                    .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
-                    .catch(err => console.log(err.response.data ? err.response.data : err.message))
+                //  db_scada.Last_24Hour_AI_Graphic_m
+                //     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
+                //     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
+                //     .catch(err => console.log(err.response.data ? err.response.data : err.message))
             }
         }, 1000)
     }
