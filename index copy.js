@@ -8,12 +8,10 @@ dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
 
-const id = makeID(20)
-const tagToID = {}, values = {}, sum = {}
-let count = 0
+let id = makeID(20), tagToID = {}, values = {}, sum = {}, count = 0
 
-// const tmserviceHost = "https://tmservice.erdenetmc.mn"
-const tmserviceHost = "http://localhost:8888"
+const tmserviceHost = "https://tmservice.erdenetmc.mn"
+// const tmserviceHost = "http://localhost:8888"
 
 async function init() {
     try {
@@ -42,67 +40,64 @@ async function init() {
                     console.log(`False tag is '${tag}'' res.data[0] ==> ${res.data[0]}`)
                     console.log("++++++++++++++++++++++++++++WARNING END+++++++++++++++++++++++++++++++++++")
                 }
+
                 tagToID[tag] = ids[i]
+                console.log(`"tagToID" обьектын утга =>`, tagToID)
                 console.log("--------------------------------------------------------------------------------")
             }
         }
     
-        const on_connect = async () => {
+        const on_connect = () => {
     
             console.log("WebSocket амжилттай холбогдлоо");
-
-            const keys = Object.keys(tagToID)
     
-            for (let i = 0; i < keys.length; i++) {
-                console.log(`Connection RANDOM ID << ${id} >>`)
-                const bindTag = keys[i]
-
-                await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${bindTag}`)
-                console.log(`Bind success => ${bindTag}`)
+            for (var tag in tagToID) {
+                axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${tag}`)
+                    .then(data => {
+                        client.subscribe("/amq/queue/temp_" + id, message => {
+                            const json = JSON.parse(message.body)
+                            json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
+                            json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
+                            values[tagToID[json.tag]] = parseFloat(json.d)
+                            console.log(values)
+                        })
+                    })
+                    .catch(err => console.log(`Наяд сервисрүү "${tag}"-ийг bind хийх үед алдаа гарлаа `, err.response.data ? err.response.data : err.message))
             }
-
-            client.subscribe("/amq/queue/temp_" + id, message => {
-                const json = JSON.parse(message.body)
-                json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
-                json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
-                values[tagToID[json.tag]] = json.d
-                if(json.d == 0 || json.d == 0.0)
-                   console.log("================================= Zero value ==================================>", json)
-            })
         }
         const on_error = error => {
-            console.log('WebSocket холболт салсан ==> Error :', error);
+            console.log('WebSocket холболт салсан ==> Error :', error.message);
         }
     
         const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws')
         client.connect(headers, on_connect, on_error)
-
-        const myIds = Object.keys(values)
-
-        setInterval(() => {
-          
-            myIds.forEach(id => sum[id] += values[id]);
-            count++;
-
-            if(new Date().getSeconds() == 0) {
-
-                const avarage = {};
-
-                myIds.forEach(id => {
-                   avarage[id] = sum[id] / count;
-                   sum[id] = 0;
-                });
-
-                count = 0;
-
-                let now = dayjs();
-
-                 db_scada.Last_24Hour_AI_Graphic_m
-                    .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
-                    .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
-                    .catch(err => console.log(err.response.data ? err.response.data : err.message))
-            }
-        }, 1000)
+    
+        // setInterval(() => {
+        //     let now = dayjs()
+        //     for(let key in values)
+        //         sum[key] += values[key]
+    
+        //     count++
+    
+        //     if(new Date().getSeconds() == 0) {
+    
+        //         for(let key in values)
+        //           sum[key] = sum[key] / count
+    
+        //           console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss'))
+        //           console.log(`Count ==> ${count}`)
+    
+        //         // db_scada.Last_24Hour_AI_Graphic_m
+        //         // .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...sum })
+        //         // .then(r => console.log('Inserted to sql ==>', now.format('YYYY-MM-DD HH:mm:ss')))
+        //         // .catch(err => console.log(err.message))
+    
+        //         for(let key in values)
+        //           sum[key] = 0
+    
+        //         count = 0
+        //     }
+        // }, 1000)
     }
     catch(err) {
         console.log("Init функц дотроос алдаа гарлаа: ", err.response.data ? err.response.data : err.message)
