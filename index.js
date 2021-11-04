@@ -97,10 +97,10 @@ async function init() {
 
                 let now = dayjs();
 
-                //  db_scada.Last_24Hour_AI_Graphic_m
-                //     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
-                //     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
-                //     .catch(err => console.log(err.response.data ? err.response.data : err.message))
+                 db_scada.Last_24Hour_AI_Graphic_m
+                    .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
+                    .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
+                    .catch(err => console.log(err.response.data ? err.response.data : err.message))
             }
         }, 1000)
     }
