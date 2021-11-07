@@ -12,8 +12,8 @@ const id = makeID(20)
 const tagToID = {}, values = {}, sum = {}
 let count = 0
 
-// const tmserviceHost = "https://tmservice.erdenetmc.mn"
-const tmserviceHost = "http://localhost:8888"
+const tmserviceHost = "https://tmservice.erdenetmc.mn"
+// const tmserviceHost = "http://localhost:8888"
 
 async function init() {
     try {
@@ -96,13 +96,13 @@ async function init() {
                 count = 0;
 
                 let now = dayjs();
-
+                console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
                  db_scada.Last_24Hour_AI_Graphic_m
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response.data ? err.response.data : err.message))
             }
-        }, 1000)
+        }, 2000)
     }
     catch(err) {
         console.log("Init функц дотроос алдаа гарлаа: ", err.response.data ? err.response.data : err.message)

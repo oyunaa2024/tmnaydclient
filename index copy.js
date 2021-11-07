@@ -1,3 +1,4 @@
+const fs = require('fs');
 const axios = require('axios')
 const Stomp = require('stompjs')
 const dayjs = require('dayjs')
@@ -7,6 +8,8 @@ const dotenv = require('dotenv')
 dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
+
+
 
 let id = makeID(20), tagToID = {}, values = {}, sum = {}, count = 0
 
