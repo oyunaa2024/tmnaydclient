@@ -102,7 +102,7 @@ async function init() {
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response ? err.response.data : err.message))
             }
-        }, 2000)
+        }, 1000)
     }
     catch(err) {
         console.log("Init функц дотроос алдаа гарлаа: ", err.response.data ? err.response.data : err.message)
