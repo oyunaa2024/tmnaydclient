@@ -96,8 +96,8 @@ async function init() {
                 count = 0;
 
                 let now = dayjs();
-                console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
-                 db_scada.Last_24Hour_AI_GSraphic_m
+                // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
+                 db_scada.Last_24Hour_AI_Graphic_m
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response ? err.response.data : err.message))
@@ -105,7 +105,7 @@ async function init() {
         }, 1000)
     }
     catch(err) {
-        console.log("Init функц дотроос алдаа гарлаа: ", err.response.data ? err.response.data : err.message)
+        console.log("Init функц дотроос алдаа гарлаа: ", err.response ? err.response.data : err.message)
     }
 }
 
