@@ -54,7 +54,7 @@ async function init() {
                 json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
                 json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
                 values[json.tag] = json.d
-                console.log(json)
+                // console.log(json)
             })
         }
         const on_error = error => {
