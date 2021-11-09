@@ -1115,6 +1115,6 @@ exports.tags = [
 "KP10_AI7"
 ]
 exports.tags1 = [
-"KP2_AI1",
-"KP2_AI2"
+"KP3_PII_GOKB_AI1",
+"KP3_PII_GOKA_AI1"
 ]
