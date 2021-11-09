@@ -83,11 +83,13 @@ async function init() {
 
                     for (const [key, value] of Object.entries(analogTags)) {
                         average[key] = value.total / value.count;
-                        value.total = 0;
-                        value.count = 0;
+                        value.total = value.total / value.count;
+                        value.count = 1;
                     }
 
                     let now = dayjs();
+
+                    // console.log(average)
                    
                     db_scada.Last_24Hour_AI_Graphic_m1
                         .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
