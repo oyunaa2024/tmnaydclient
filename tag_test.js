@@ -10,6 +10,7 @@ const db_scada = require("./config/db-mssql/scada");
 
 const id = makeID(20)
 const analogTags = {}
+const resetTags = {}
 
 
 async function init() {
@@ -26,6 +27,10 @@ async function init() {
                     total: JSON.parse(res.data[0]).d,
                     count: 1
                 }
+                resetTags[tags[i]] = {
+                    total: JSON.parse(res.data[0]).d,
+                    count: 1
+                }
             }
             else {
                 console.log("+++++++++++++++++++++++++++++WARNING++++++++++++++++++++++++++++++++++++++")
@@ -33,7 +38,11 @@ async function init() {
                 console.log("++++++++++++++++++++++++++++WARNING END+++++++++++++++++++++++++++++++++++")
                 analogTags[tags[i]] = {
                     total: 0,
-                    count: 0
+                    count: 1
+                }
+                resetTags[tags[i]] = {
+                    total: 0,
+                    count: 1
                 }
             }
 
@@ -79,22 +88,22 @@ async function init() {
                 console.log(now.format('YYYY-MM-DD HH:mm:ss'))
 
                 const mainInterval = setInterval(() => {
+
+                    const analogTagsCopy = {...analogTags}
                     const average = {};
 
-                    for (const [key, value] of Object.entries(analogTags)) {
+                    for (const [key, value] of Object.entries(analogTagsCopy)) {
                         average[key] = value.total / value.count;
-                        value.total = value.total / value.count;
-                        value.count = 1;
                     }
 
                     let now = dayjs();
-
                     // console.log(average)
-                   
                     db_scada.Last_24Hour_AI_Graphic_m1
                         .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
                         .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                         .catch(err => console.log(err.response ? err.response.data : err.message))
+                    
+                    analogTags = {...resetTags}
 
                 }, 60 * 1000)
 
