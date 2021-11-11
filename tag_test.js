@@ -28,8 +28,8 @@ async function init() {
                     count: 1
                 }
                 resetTags[tags[i]] = {
-                    total: JSON.parse(res.data[0]).d,
-                    count: 1
+                    total: 0,
+                    count: 0
                 }
             }
             else {
@@ -42,7 +42,7 @@ async function init() {
                 }
                 resetTags[tags[i]] = {
                     total: 0,
-                    count: 1
+                    count: 0
                 }
             }
 
@@ -89,25 +89,34 @@ async function init() {
 
                 const mainInterval = setInterval(() => {
 
-                    const analogTagsCopy = {...analogTags}
+                    const analogTagsCopy = {...analogTags};
                     const average = {};
 
                     for (const [key, value] of Object.entries(analogTagsCopy)) {
-                        average[key] = value.total / value.count;
+
+                        if(value.count === 0){
+                            average[key] = value.total;
+                        }
+                        else {
+                            average[key] = value.total / value.count;
+                            resetTags[key].total = value.total / value.count;
+                            resetTags[key].count = 1;
+                        }
+                        
                     }
 
                     let now = dayjs();
-                    // console.log(average)
+               
                     db_scada.Last_24Hour_AI_Graphic_m1
                         .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
                         .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                         .catch(err => console.log(err.response ? err.response.data : err.message))
                     
-                    analogTags = {...resetTags}
+                    analogTags = {...resetTags};
 
                 }, 60 * 1000)
 
-                console.log("MyTimerStop")
+                console.log("My Timer Stoped !!!")
                 clearInterval(myTimer)
             }
 
