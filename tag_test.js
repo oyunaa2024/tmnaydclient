@@ -84,13 +84,12 @@ async function init() {
 
                 mainCount = 0;
 
+                let now = dayjs()
+
                 // SQL серверлүү бичих хэсэг
                 db_scada.Last_24Hour_AI_Graphic_m1
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
-                    .then(r => {
-                        let now = dayjs()
-                        console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
-                    })
+                    .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response ? err.response.data : err.message))
 
             }
