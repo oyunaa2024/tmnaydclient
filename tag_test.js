@@ -8,7 +8,7 @@ dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
 
-const id = makeID(20)
+const id = makeID(20);
 let analogTagsRealValues = {};
 let mainCount = 0;
 let sum = {};
