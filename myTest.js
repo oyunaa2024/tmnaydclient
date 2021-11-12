@@ -29,7 +29,6 @@ async function init() {
 
             if (res.data[0]) {
                 console.log(`Таг : ${tags[i]}`)
-               
                 
                 analogTagsRealValues[tags[i]] = {
                     value: JSON.parse(res.data[0]).d,
@@ -37,6 +36,7 @@ async function init() {
                 };
 
                 timerTags[tags[i]] = setInterval(function() {
+                    let now = dayjs()
                     analogTagsRealValues[tags[i]].count += 1;
                   }, 1000);
                   
@@ -45,7 +45,6 @@ async function init() {
                     count:0
                 }
                 console.log(`Анхны утга :`, analogTagsRealValues)
-                console.log("sum =>", sum);
                 console.log("------------");
             }
             else {
@@ -79,17 +78,12 @@ async function init() {
                 json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1);
                 json.tag = json.tag.substring(5, json.tag.length).split('.').join('_');
 
-                console.log(json)
-
                 sum[json.tag].value += analogTagsRealValues[json.tag].value * analogTagsRealValues[json.tag].count;     // 5 * 3
                 sum[json.tag].count += analogTagsRealValues[json.tag].count;  
                 
-                console.log("sum: ",sum) //  3
-
                 analogTagsRealValues[json.tag].value = json.d;
                 analogTagsRealValues[json.tag].count = 1;
-
-                console.log("analogTagsRealValues :" , analogTagsRealValues)
+              
             })
           
         }
@@ -106,22 +100,24 @@ async function init() {
 
                 const sumCopy = {...sum};
                 const average = {};
+
                 for (const [key, sum] of Object.entries(sumCopy)) {
                     average[key] = sum.value / sum.count;
-
                     sumCopy[key].value = 0;
                     sumCopy[key].count = 0;
                 };
 
                 sum = {...sumCopy}
-                console.log("SUM => ", sum)
 
                 let now = dayjs()
-                console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, analogTagsRealValues)
+                // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
+                db_scada.Last_24Hour_AI_Graphic_m1
+                    .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
+                    .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
+                    .catch(err => console.log(err.response ? err.response.data : err.message))
 
 
                 setInterval(() => {
-                    console.log("++++> MainTIME")
                     const sumCopy = {...sum};
                     const average = {};
                     for (const [key, sum] of Object.entries(sumCopy)) {
@@ -132,16 +128,14 @@ async function init() {
                     };
 
                     sum = {...sumCopy}
-                    console.log("SUM => ", sum)
-               
 
                     let now = dayjs()
-                    console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, analogTagsRealValues)
+                    // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
                     // SQL серверлүү бичих хэсэг
-                    // db_scada.Last_24Hour_AI_Graphic_m1
-                    //     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
-                    //     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
-                    //     .catch(err => console.log(err.response ? err.response.data : err.message))
+                    db_scada.Last_24Hour_AI_Graphic_m1
+                        .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
+                        .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
+                        .catch(err => console.log(err.response ? err.response.data : err.message))
 
                     
                 }, 60 * 1000);

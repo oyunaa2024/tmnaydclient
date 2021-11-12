@@ -561,7 +561,7 @@ exports.ids1 = [
     32000201
 ]
 
-exports.tags1 = [
+exports.tags = [
 "KP2_AI1",
 "KP2_AI2",
 "KP2_AI3",
@@ -1105,7 +1105,7 @@ exports.tags1 = [
 "SIM602_AI5",
 "KP10_AI7"
 ]
-exports.tags = [
+exports.tags1 = [
     // "KP2_AI1"
 "KP3_PII_GOKB_AI1"
 // "KP3_PII_GOKA_AI1"
