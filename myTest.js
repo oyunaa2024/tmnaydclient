@@ -10,7 +10,6 @@ const db_scada = require("./config/db-mssql/scada");
 
 const id = makeID(20);
 let analogTagsRealValues = {};
-let mainCount = 0;
 let timerTags = {}
 let sum = {};
 
@@ -18,7 +17,7 @@ function start() {
     add = setInterval(function() {
       input.value++;
     }, 1000);
-  }
+}
   
 async function init() {
     try {
@@ -35,7 +34,6 @@ async function init() {
                 };
 
                 timerTags[tags[i]] = setInterval(function() {
-                    let now = dayjs()
                     analogTagsRealValues[tags[i]].count += 1;
                   }, 1000);
                   
@@ -54,7 +52,9 @@ async function init() {
                     value: 0,
                     count: 1
                 };
-                timerTags[tags[i]] = null;
+                timerTags[tags[i]] = setInterval(function() {
+                    analogTagsRealValues[tags[i]].count += 1;
+                }, 1000);
                 sum[tags[i]] = {
                     value: 0,
                     count:0
@@ -93,21 +93,26 @@ async function init() {
         const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws')
         client.connect(headers, on_connect, on_error)
 
-        const myTimer = setInterval(()=>{
+        const myTimer = setInterval(() => {
             console.log("===> MyTIMER")
             if(new Date().getSeconds() == 0) {
 
                 const sumCopy = {...sum};
+                const analogTagsRealValuesCopy = {...analogTagsRealValues};
                 const average = {};
 
-                for (const [key, sumValue] of Object.entries(sumCopy)) {
+                for (const key of Object.keys(sumCopy)) {
+
+                    sumCopy[key].value += analogTagsRealValuesCopy[key].value * analogTagsRealValuesCopy[key].count;
+                    sumCopy[key].count += analogTagsRealValuesCopy[key].count;
                     
-                    average[key] = sumValue.count === 0 ? sumValue.value : sumValue.value / sumValue.count;
+                    average[key] = sumCopy[key].count === 0 ? sumCopy[key].value : sumCopy[key].value / sumCopy[key].count;
+
                     sumCopy[key].value = 0;
                     sumCopy[key].count = 0;
                 };
 
-                sum = {...sumCopy}
+                sum = {...sumCopy};
 
                 let now = dayjs()
                 // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
@@ -119,14 +124,20 @@ async function init() {
 
                 setInterval(() => {
                     const sumCopy = {...sum};
+                    const analogTagsRealValuesCopy = {...analogTagsRealValues};
                     const average = {};
-                    for (const [key, sumValue] of Object.entries(sumCopy)) {
-                        average[key] = sumValue.count === 0 ? sumValue.value : sumValue.value / sumValue.count;
-
+    
+                    for (const key of Object.keys(sumCopy)) {
+    
+                        sumCopy[key].value += analogTagsRealValuesCopy[key].value * analogTagsRealValuesCopy[key].count;
+                        sumCopy[key].count += analogTagsRealValuesCopy[key].count;
+                        
+                        average[key] = sumCopy[key].count === 0 ? sumCopy[key].value : sumCopy[key].value / sumCopy[key].count;
+    
                         sumCopy[key].value = 0;
                         sumCopy[key].count = 0;
                     };
-
+    
                     sum = {...sumCopy}
 
                     let now = dayjs()
