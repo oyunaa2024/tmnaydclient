@@ -121,7 +121,7 @@ async function init() {
                     const sumCopy = {...sum};
                     const average = {};
                     for (const [key, sum] of Object.entries(sumCopy)) {
-                        average[key] = sum.value / sum.count;
+                        average[key] = sumValue.count === 0 ? sumValue.value : sumValue.value / sumValue.count;
 
                         sumCopy[key].value = 0;
                         sumCopy[key].count = 0;
