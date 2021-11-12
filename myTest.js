@@ -20,7 +20,6 @@ function start() {
     }, 1000);
   }
   
-
 async function init() {
     try {
         for (let i = 0; i < tags.length; i++) {
@@ -44,7 +43,7 @@ async function init() {
                     value: 0,
                     count:0
                 }
-                console.log(`Анхны утга :`, analogTagsRealValues)
+                console.log(`Анхны утга :`, analogTagsRealValues[tags[i]].value)
                 console.log("------------");
             }
             else {
