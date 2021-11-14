@@ -2,87 +2,50 @@ const axios = require('axios')
 const Stomp = require('stompjs')
 const dayjs = require('dayjs')
 const makeID = require('./utils/makeID')
-const {headers, tags } = require('./utils/base')
+const {headers, realValues } = require('./utils/base')
 const dotenv = require('dotenv')
 dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
+// const { json } = require('sequelize/types')
 
 const id = makeID(20);
-let analogTagsRealValues = {};
-let timerTags = {}
 let sum = {};
-
-function start() {
-    add = setInterval(function() {
-      input.value++;
-    }, 1000);
-}
+let mainCount = 0;
   
 async function init() {
     try {
-        for (let i = 0; i < tags.length; i++) {
+        for (let tag of Object.keys(realValues)) {
                
-            res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tags[i]}`)
-
-            if (res.data[0]) {
-                console.log(`Таг : ${tags[i]}`)
-                
-                analogTagsRealValues[tags[i]] = {
-                    value: JSON.parse(res.data[0]).d,
-                    count: 1
-                };
-
-                timerTags[tags[i]] = setInterval(function() {
-                    analogTagsRealValues[tags[i]].count += 1;
-                  }, 1000);
-                  
-                sum[tags[i]] = {
-                    value: 0,
-                    count:0
+            res = await axios(`https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`)
+                realValues[tag] = JSON.parse(res.data[0]).d;
+                sum[tag] = 0;
+                if(tag === "KP3_PII_GOKB_AI1"){
+                    console.log(`Анхны утга :`, realValues["KP3_PII_GOKB_AI1"])
+                    console.log("------------");
                 }
-                console.log(`Анхны утга :`, analogTagsRealValues[tags[i]].value)
-                console.log("------------");
-            }
-            else {
-                console.log("+++++++++++++++++++++++++++++WARNING++++++++++++++++++++++++++++++++++++++")
-                console.log(`False tag[i] is '${tags[i]}'' res.data[0] ==> ${res.data[0]}`)
-                console.log("++++++++++++++++++++++++++++WARNING END+++++++++++++++++++++++++++++++++++")
-                analogTagsRealValues[tags[i]] = {
-                    value: 0,
-                    count: 1
-                };
-                timerTags[tags[i]] = setInterval(function() {
-                    analogTagsRealValues[tags[i]].count += 1;
-                }, 1000);
-                sum[tags[i]] = {
-                    value: 0,
-                    count:0
-                }
-            }
-
         }
-    
+
         const on_connect = async () => {
     
             console.log("WebSocket амжилттай холбогдлоо");
     
-            for (let i = 0; i < tags.length; i++) {
-                console.log(`Connection RANDOM ID << ${id} >>`)
-                await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${tags[i]}`)
-                console.log(`Bind success => ${tags[i]}`)
+            for (let tag of Object.keys(realValues)) {
+                // console.log(`Connection RANDOM ID << ${id} >>`)
+                await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${tag}`)
+                // console.log(`Bind success => ${tag}`)
             }
             client.subscribe("/amq/queue/temp_" + id, message => {
                 const json = JSON.parse(message.body);
                 json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1);
                 json.tag = json.tag.substring(5, json.tag.length).split('.').join('_');
 
-                sum[json.tag].value += analogTagsRealValues[json.tag].value * analogTagsRealValues[json.tag].count;     // 5 * 3
-                sum[json.tag].count += analogTagsRealValues[json.tag].count;  
-                
-                analogTagsRealValues[json.tag].value = json.d;
-                analogTagsRealValues[json.tag].count = 1;
-              
+                realValues[json.tag] = json.d;
+
+                if(json.tag === "KP3_PII_GOKB_AI1") {
+                    console.log(json);
+                    console.log("REAL VALUE ->", realValues["KP3_PII_GOKB_AI1"]);
+                }
             })
           
         }
@@ -93,26 +56,34 @@ async function init() {
         const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws')
         client.connect(headers, on_connect, on_error)
 
-        const myTimer = setInterval(() => {
-            console.log("===> MyTIMER")
-            if(new Date().getSeconds() == 0) {
+        const mainTimer = setInterval(() => {
+            console.log("- Timer started -")
 
-                const sumCopy = {...sum};
-                const analogTagsRealValuesCopy = {...analogTagsRealValues};
+            realValuesCopy = {...realValues}
+            console.log("REAL VALUE COPY =>", realValuesCopy["KP3_PII_GOKB_AI1"]);
+
+            for (let [key, value] of Object.entries(realValuesCopy)) {
+                sum[key] += value;
+            }
+            console.log("SUM =>", sum["KP3_PII_GOKB_AI1"]);
+
+            mainCount += 1;
+            console.log("MAINCOUNT =>", mainCount);
+          
+            if(new Date().getSeconds() == 0) {
+                console.log("<< Дундаж утга бодох хэсэг >>")
                 const average = {};
 
-                for (const key of Object.keys(sumCopy)) {
+                for (let [key, value] of Object.entries(sum)) {
+                    average[key] = value / mainCount;
+                    sum[key] = 0;
+                }
+               
 
-                    sumCopy[key].value += analogTagsRealValuesCopy[key].value * analogTagsRealValuesCopy[key].count;
-                    sumCopy[key].count += analogTagsRealValuesCopy[key].count;
-                    
-                    average[key] = sumCopy[key].count === 0 ? sumCopy[key].value : sumCopy[key].value / sumCopy[key].count;
-
-                    sumCopy[key].value = 0;
-                    sumCopy[key].count = 0;
-                };
-
-                sum = {...sumCopy};
+                mainCount = 0;
+                console.log("Average:", average["KP3_PII_GOKB_AI1"])
+                console.log("Sum:", sum["KP3_PII_GOKB_AI1"]);
+                console.log("mainCount:", mainCount);
 
                 let now = dayjs()
                 // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
@@ -120,40 +91,8 @@ async function init() {
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response ? err.response.data : err.message))
-
-
-                setInterval(() => {
-                    const sumCopy = {...sum};
-                    const analogTagsRealValuesCopy = {...analogTagsRealValues};
-                    const average = {};
-    
-                    for (const key of Object.keys(sumCopy)) {
-    
-                        sumCopy[key].value += analogTagsRealValuesCopy[key].value * analogTagsRealValuesCopy[key].count;
-                        sumCopy[key].count += analogTagsRealValuesCopy[key].count;
-                        
-                        average[key] = sumCopy[key].count === 0 ? sumCopy[key].value : sumCopy[key].value / sumCopy[key].count;
-    
-                        sumCopy[key].value = 0;
-                        sumCopy[key].count = 0;
-                    };
-    
-                    sum = {...sumCopy}
-
-                    let now = dayjs()
-                    // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
-                    // SQL серверлүү бичих хэсэг
-                    db_scada.Last_24Hour_AI_Graphic_m1
-                        .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
-                        .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
-                        .catch(err => console.log(err.response ? err.response.data : err.message))
-
-                    
-                }, 60 * 1000);
-
-                clearInterval(myTimer);
-                console.log("===> MyTIMER STOPPED")
             }
+            console.log("----------------------------------------");
         },1000)
     }
     catch(err) {
