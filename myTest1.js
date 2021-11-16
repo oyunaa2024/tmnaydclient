@@ -65,7 +65,7 @@ async function init() {
                     console.log("TIMDIFF => ",timeDiff)
                     console.log("REAL VALUES => ",realValues["KP3_PII_KOTB_AI1"])
                     console.log("SUM => ", sum["KP3_PII_KOTB_AI1"])
-                    console.log("\n")
+                    console.log("--------------------------------------------------------")
                 }
                
             })
@@ -130,7 +130,10 @@ const startTimer = setInterval(() => {
 
             db_scada.Last_24Hour_AI_Graphic_m1
                 .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
-                .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"]))
+                .then(r => {
+                    console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"])
+                    console.log("....................................................................................................................")
+                })
                 .catch(err => console.log(err.response ? err.response.data : err.message))
 
             console.timeEnd()
