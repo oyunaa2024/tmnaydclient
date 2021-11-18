@@ -34,9 +34,7 @@ async function init() {
             console.log("WebSocket амжилттай холбогдлоо");
     
             for (let tag of tags) {
-                // console.log(`Connection RANDOM ID << ${id} >>`)
                 await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&tags[]=ELEC_${tag}`)
-                // console.log(`Bind success => ${tag}`)
             }
             console.log("Bind success...");
 
@@ -53,21 +51,34 @@ async function init() {
                 
                 realValues[json.tag].value = json.d;
                 realValues[json.tag].timestamp = nowTimestamp;
+
+                if(json.tag === "KP3_PII_KOTB_AI1"){
+                    console.log(json)
+                }
                
             })
-          
+
         }
         const on_error = error => {
             console.log('WebSocket холболт салсан ==> Error :', error);
+            let now = dayjs();
+            console.log(now.format('YYYY-MM-DD HH:mm:ss'));
+            setTimeout(function() {
+                client.disconnect(() => console.log("disconnect websocket"))
+                init();
+                console.log("Init дахин дуудагдлаа...!")
+            }, 10000);
         }
     
-        const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws')
-        client.connect(headers, on_connect, on_error)
+        const client = Stomp.overWS('wss://rabbit.erdenetmc.mn:15673/ws');
+        client.connect(headers, on_connect, on_error);
 
         
     }
     catch(err) {
-        console.log("Init функц дотроос алдаа гарлаа: ", err.response ? err.response.data : err.message)
+        console.log("Init функц дотроос алдаа гарлаа ==> Error :", err.response ? err.response.data : err.message)
+        let now = dayjs();
+        console.log(now.format('YYYY-MM-DD HH:mm:ss'));
     }
 }
 
@@ -79,16 +90,16 @@ const startTimer = setInterval(() => {
 
     if(new Date().getSeconds() == 0) {
 
-        setInterval(() => {
+        const mainTimer = setInterval(() => {
 
             console.log("Дундаж утга бодох хэсэг")
-
+        
             const realValuesCopy = {...realValues}
             const sumCopy = {...sum}
             const average = {};
            
             let nowTimestamp  = Date.now();
-
+        
             for (let [key, obj] of Object.entries(sumCopy)) {
                 average[key] = parseFloat(((obj.value + (realValuesCopy[key].value * (nowTimestamp - realValuesCopy[key].timestamp))) / (obj.count +  (nowTimestamp - realValuesCopy[key].timestamp))).toFixed(2));
                 realValuesCopy[key].timestamp = nowTimestamp;
@@ -99,7 +110,7 @@ const startTimer = setInterval(() => {
             }
             sum = {...sumCopy};
             realValues = {...realValuesCopy};
-
+        
             let now = dayjs()
             // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"]);
             // console.log("-----------------------------------------------------------------------------------------------------------------\n")
@@ -107,15 +118,15 @@ const startTimer = setInterval(() => {
             db_scada.Last_24Hour_AI_Graphic_m1
                 .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...average })
                 .then(r => {
-                    console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average)
-                    console.log("....................................................................................................................\n")
+                    console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"])
+                    console.log("...............................................................................................................\n")
                 })
                 .catch(err => console.log(err.response ? err.response.data : err.message))
-
-     
+        
+        
         }, 60 * 1000);
 
         clearInterval(startTimer);
         console.log(">>> Start timer STOPPED <<<")
     }
-}, 1000)
+}, 1000);
