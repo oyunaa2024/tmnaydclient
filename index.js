@@ -13,7 +13,8 @@ const id = makeID(20)
 const tagToID = {}, values = {}, sum = {}
 let count = 0
 
-const tmserviceHost = "http://localhost:8888"
+// const tmserviceHost = "http://localhost:8888"
+const tmserviceHost = "https://tmservice.erdenetmc.mn"
 
 async function init() {
     try {
@@ -87,15 +88,17 @@ async function init() {
                 const avarage = {};
 
                 myIds.forEach(id => {
-                   avarage[id] = (sum[id] / count);
+                   avarage[id] = parseFloat((sum[id] / count).toFixed(2));
                    sum[id] = 0;
                 });
+
+                console.log(avarage)
 
                 count = 0;
 
                 let now = dayjs();
                 // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
-                 db_scada.Last_24Hour_AI_GSraphic_m
+                 db_scada.Last_24Hour_AI_Graphic_m
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
                     .catch(err => console.log(err.response ? err.response.data : err.message))

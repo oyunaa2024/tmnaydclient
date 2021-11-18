@@ -4,7 +4,7 @@ exports.headers = {
     host: 'Elec'
 }
 
-exports.ids = [
+exports.ids1 = [
     21000001,
     21000002,
     21000003,
@@ -557,7 +557,7 @@ exports.ids = [
     623000005,
     101000007
 ]
-exports.ids1 = [
+exports.ids = [
     32000201
 ]
 
