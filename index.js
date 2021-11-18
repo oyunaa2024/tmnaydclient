@@ -13,8 +13,8 @@ const id = makeID(20)
 const tagToID = {}, values = {}, sum = {}
 let count = 0
 
-// const tmserviceHost = "http://localhost:8888"
-const tmserviceHost = "https://tmservice.erdenetmc.mn"
+const tmserviceHost = "http://localhost:8888"
+// const tmserviceHost = "https://tmservice.erdenetmc.mn"
 
 async function init() {
     try {
@@ -92,7 +92,7 @@ async function init() {
                    sum[id] = 0;
                 });
 
-                console.log(avarage)
+                // console.log(avarage)
 
                 count = 0;
 
