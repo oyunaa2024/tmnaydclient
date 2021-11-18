@@ -87,7 +87,7 @@ async function init() {
                 const avarage = {};
 
                 myIds.forEach(id => {
-                   avarage[id] = parseFloat((sum[id] / count).toFixed());
+                   avarage[id] = parseFloat((sum[id] / count).toFixed(2));
                    sum[id] = 0;
                 });
 
