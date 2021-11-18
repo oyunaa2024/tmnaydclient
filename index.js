@@ -12,8 +12,7 @@ const id = makeID(20)
 const tagToID = {}, values = {}, sum = {}
 let count = 0
 
-const tmserviceHost = "https://tmservice.erdenetmc.mn"
-// const tmserviceHost = "http://localhost:8888"
+const tmserviceHost = "http://localhost:8888"
 
 async function init() {
     try {
@@ -66,8 +65,8 @@ async function init() {
                 json.tag = message.headers.destination.substring(message.headers.destination.lastIndexOf("/") + 1)
                 json.tag = json.tag.substring(5, json.tag.length).split('.').join('_')
                 values[tagToID[json.tag]] = json.d
-                if(json.d === 0 || json.d === 0.0)
-                   console.log("================================= Zero value ==================================>", json)
+                // if(json.d === 0 || json.d === 0.0)
+                //    console.log("================================= Zero value ==================================>", json)
             })
         }
         const on_error = error => {
@@ -89,14 +88,14 @@ async function init() {
                 const avarage = {};
 
                 myIds.forEach(id => {
-                   avarage[id] = sum[id] / count;
+                   avarage[id] = parseFloat((sum[id] / count).toFixed());
                    sum[id] = 0;
                 });
 
                 count = 0;
 
                 let now = dayjs();
-                console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
+                // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`)
                  db_scada.Last_24Hour_AI_GSraphic_m
                     .create({ ValueDate: now.format('YYYY-MM-DD HH:mm:ss'), ...avarage })
                     .then(r => console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`))
