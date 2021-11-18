@@ -25,7 +25,8 @@ const sequelize = new Sequelize(
 );
 
 const models = [
-    require("../../models/Scada/Last_24Hour_AI_Graphic_m")
+    require("../../models/Scada/Last_24Hour_AI_Graphic_m"),
+    require("../../models/Scada/Last_24Hour_AI_Graphic_m1")
 ];
 
 models.forEach(model => {

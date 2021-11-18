@@ -4,6 +4,7 @@ const dayjs = require('dayjs')
 const makeID = require('./utils/makeID')
 const { ids, headers } = require('./utils/base')
 const dotenv = require('dotenv')
+
 dotenv.config({ path: "./config/config.env" });
 
 const db_scada = require("./config/db-mssql/scada");
@@ -30,19 +31,17 @@ async function init() {
                     values[ids[i]] = JSON.parse(res.data[0]).d
                     // console.log(`Анхны утга : ${values[ids[i]]}`)
                     // console.log(`"values" обьектын утга =>`, values)
-
                     sum[ids[i]] = 0
                     // console.log(`"sum" обьектын утга =>`, sum)
                     // console.log(ids[i] + ' ==> ' + values[ids[i]])
                 }
                 else {
-                    values[ids[i]] = 0
+                    // values[ids[i]] = 0
                     console.log("+++++++++++++++++++++++++++++WARNING++++++++++++++++++++++++++++++++++++++")
                     console.log(`False tag is '${tag}'' res.data[0] ==> ${res.data[0]}`)
                     console.log("++++++++++++++++++++++++++++WARNING END+++++++++++++++++++++++++++++++++++")
                 }
                 tagToID[tag] = ids[i]
-                console.log("--------------------------------------------------------------------------------")
             }
         }
     
@@ -104,7 +103,7 @@ async function init() {
         }, 1000)
     }
     catch(err) {
-        console.log("Init функц дотроос алдаа гарлаа: ", err.response.data ? err.response.data : err.message)
+        console.log("Init функц дотроос алдаа гарлаа: ", err.response ? err.response.data : err.message)
     }
 }
 
