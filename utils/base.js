@@ -557,9 +557,6 @@ exports.ids = [
     623000005,
     101000007
 ]
-exports.ids1 = [
-    32000201
-]
 
 exports.realValues = {
     KP2_AI1: 0, 
@@ -1105,12 +1102,6 @@ exports.realValues = {
     SIM602_AI5: 0,
     KP10_AI7: 0
 }
-
-exports.realValues1 = {
-    KP3_PII_GOKB_AI1:0,
-    SIM601_AI2: 0
-}
-
 exports.tags = [
 "KP2_AI1",
 "KP2_AI2",
@@ -1653,14 +1644,12 @@ exports.tags = [
 "SIM602_AI3",
 "SIM602_AI4",
 "SIM602_AI5",
-"KP10_AI7"
-]
-
-exports.tags1 = [
-    // "KP4_AI5"
-    "KP2_AI1",
-    // "SIM19_AI4"
-    // "KP9_AI2"
-// "KP3_PII_GOKB_AI1"
-// "KP3_PII_GOKA_AI1"
+"KP10_AI7",
+"KP5X_ABB_T2_AI10",
+"KP5X_ABB_T2_AI13",
+"KP5X_ABB_T2_AI26",
+"KP5X_ABB_T2_AI21",
+"KP5X_ABB_T2_AI0",
+"KP5X_ABB_T2_AI3",
+"KP5X_ABB_T2_AI4"
 ]
