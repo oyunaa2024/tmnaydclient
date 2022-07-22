@@ -130,6 +130,7 @@ async function init() {
           );
       }
     }, 1000);
+    
   } catch (err) {
     console.log(
       "Init функц дотроос алдаа гарлаа ==> Error :",

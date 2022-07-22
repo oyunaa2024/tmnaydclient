@@ -30,7 +30,7 @@ async function init() {
     console.log("Тагууд анхны утгаа авлаа...");
 
     const on_connect = async () => {
-      console.log("WebSocket амжилттай холбогдлоо");
+      console.log("WebSocket амжилттай холбогдлоо: naydClient.js");
 
       for (let tag of tags) {
         await axios.get(
@@ -68,15 +68,64 @@ async function init() {
       console.log("WebSocket холболт салсан ==> Error :", error);
       let now = dayjs();
       console.log(now.format("YYYY-MM-DD HH:mm:ss"));
-      setTimeout(function () {
-        client.disconnect(() => console.log("disconnect websocket"));
-        init();
-        console.log("Init дахин дуудагдлаа...!");
-      }, 10000);
     };
 
     const client = Stomp.overWS("wss://rabbit.erdenetmc.mn:15673/ws");
     client.connect(headers, on_connect, on_error);
+
+    let myInterval = setInterval(() => {
+      if (new Date().getSeconds() == 0) {
+        console.log("Дундаж утга бодох хэсэг");
+    
+        const realValuesCopy = { ...realValues };
+        const sumCopy = { ...sum };
+        const average = {};
+    
+        let nowTimestamp = Date.now();
+    
+        for (let [key, obj] of Object.entries(sumCopy)) {
+          average[key] = parseFloat(
+            (
+              (obj.value +
+                realValuesCopy[key].value *
+                  (nowTimestamp - realValuesCopy[key].timestamp)) /
+              (obj.count + (nowTimestamp - realValuesCopy[key].timestamp))
+            ).toFixed(2)
+          );
+          realValuesCopy[key].timestamp = nowTimestamp;
+          sumCopy[key] = {
+            value: 0,
+            count: 0,
+          };
+        }
+        sum = { ...sumCopy };
+        realValues = { ...realValuesCopy };
+    
+        let now = dayjs();
+        // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"]);
+        // console.log("-----------------------------------------------------------------------------------------------------------------\n")
+    
+        db_scada.Last_24Hour_AI_Graphic_m1.create({
+          ValueDate: now.format("YYYY-MM-DD HH:mm:ss"),
+          ...average,
+        })
+          .then((r) => {
+            console.log(
+              `"${now.format(
+                "YYYY-MM-DD HH:mm:ss"
+              )}" 1 минутын дундаж SQL серверлүү бичигдлээ`,
+              average["KP3_PII_KOTB_AI1"]
+            );
+            console.log(
+              "...............................................................................................................\n"
+            );
+          })
+          .catch((err) =>
+            console.log(err.response ? err.response.data : err.message)
+          );
+      }
+    }, 1000);
+    
   } catch (err) {
     console.log(
       "Init функц дотроос алдаа гарлаа ==> Error :",
@@ -84,60 +133,8 @@ async function init() {
     );
     let now = dayjs();
     console.log(now.format("YYYY-MM-DD HH:mm:ss"));
+    clearInterval(myInterval);
   }
 }
 
 init();
-
-setInterval(() => {
-  if (new Date().getSeconds() == 0) {
-    console.log("Дундаж утга бодох хэсэг");
-
-    const realValuesCopy = { ...realValues };
-    const sumCopy = { ...sum };
-    const average = {};
-
-    let nowTimestamp = Date.now();
-
-    for (let [key, obj] of Object.entries(sumCopy)) {
-      average[key] = parseFloat(
-        (
-          (obj.value +
-            realValuesCopy[key].value *
-              (nowTimestamp - realValuesCopy[key].timestamp)) /
-          (obj.count + (nowTimestamp - realValuesCopy[key].timestamp))
-        ).toFixed(2)
-      );
-      realValuesCopy[key].timestamp = nowTimestamp;
-      sumCopy[key] = {
-        value: 0,
-        count: 0,
-      };
-    }
-    sum = { ...sumCopy };
-    realValues = { ...realValuesCopy };
-
-    let now = dayjs();
-    // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"]);
-    // console.log("-----------------------------------------------------------------------------------------------------------------\n")
-
-    db_scada.Last_24Hour_AI_Graphic_m1.create({
-      ValueDate: now.format("YYYY-MM-DD HH:mm:ss"),
-      ...average,
-    })
-      .then((r) => {
-        console.log(
-          `"${now.format(
-            "YYYY-MM-DD HH:mm:ss"
-          )}" 1 минутын дундаж SQL серверлүү бичигдлээ`,
-          average["KP3_PII_KOTB_AI1"]
-        );
-        console.log(
-          "...............................................................................................................\n"
-        );
-      })
-      .catch((err) =>
-        console.log(err.response ? err.response.data : err.message)
-      );
-  }
-}, 1000);
