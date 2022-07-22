@@ -12,8 +12,11 @@ const tags = ["KP5X_ABB_T2_AI13", "KP5X_ABB_T2_AI14", "KP5X_ABB_T2_AI10", "KP5X_
 
 const id = makeID(20);
 let realValues = {};
-let RP10_BBOD3 = [];
-let RP10_BBOD2 = [];
+let RP10_BBOD3_P = [];
+let RP10_BBOD3_U = [];
+let RP10_BBOD2_P = [];
+let RP10_BBOD2_U = [];
+
 const SQRT3 = Math.sqrt(3);
 
 async function init() {
@@ -29,15 +32,25 @@ async function init() {
     }
     console.log("Тагууд анхны утгаа авсан...");
 
-    RP10_BBOD3.push({
-      ALM_TAGNAME: "RP10_BBOD3",
+    RP10_BBOD3_P.push({
+      ALM_TAGNAME: "RP10_BBOD3_P",
       ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
       ALM_VALUE: (realValues["KP5X_ABB_T2_AI10"].value * realValues["KP5X_ABB_T2_AI17"].value * SQRT3 / 1000).toFixed(2)
     });
-    RP10_BBOD2.push({
-      ALM_TAGNAME: "RP10_BBOD2",
+    RP10_BBOD2_P.push({
+      ALM_TAGNAME: "RP10_BBOD2_P",
       ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
       ALM_VALUE: (realValues["KP5X_ABB_T2_AI13"].value * realValues["KP5X_ABB_T2_AI14"].value * SQRT3 / 1000).toFixed(2)
+    });
+    RP10_BBOD2_U.push({
+      ALM_TAGNAME: "RP10_BBOD2_U",
+      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+      ALM_VALUE: realValues["KP5X_ABB_T2_AI13"].value.toFixed(2)
+    });
+    RP10_BBOD3_U.push({
+      ALM_TAGNAME: "RP10_BBOD3_U",
+      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+      ALM_VALUE: realValues["KP5X_ABB_T2_AI10"].value.toFixed(2)
     });
 
     const on_connect = async () => {
@@ -73,20 +86,34 @@ async function init() {
 
     const myTimer = setInterval(() => {
 
-      if(RP10_BBOD3.length > 0){
-          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD3])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD3 -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
+      if(RP10_BBOD3_P.length > 0){
+          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD3_P])
+            .then(res => console.log("<-- INSERTED TO SQL BBOD3_P -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
             .catch(err => console.log(err.message));
       }
 
-      if(RP10_BBOD2.length > 0){
-          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD2 -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
+      if(RP10_BBOD3_U.length > 0){
+          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD3_U])
+            .then(res => console.log("<-- INSERTED TO SQL BBOD3_U -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
             .catch(err => console.log(err.message));
       }
 
-      RP10_BBOD3 = [];
-      RP10_BBOD2 = [];
+      if(RP10_BBOD2_P.length > 0){
+          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2_P])
+            .then(res => console.log("<-- INSERTED TO SQL BBOD2_P -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
+            .catch(err => console.log(err.message));
+      }
+
+      if(RP10_BBOD2_U.length > 0){
+          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2_U])
+            .then(res => console.log("<-- INSERTED TO SQL BBOD2_U -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
+            .catch(err => console.log(err.message));
+      }
+
+      RP10_BBOD3_P = [];
+      RP10_BBOD2_P = [];
+      RP10_BBOD3_U = [];
+      RP10_BBOD2_U = [];
 
     }, 1000 * 60);
 
@@ -107,29 +134,41 @@ async function init() {
 function calculatePower(json){
     if(json.tag === "KP5X_ABB_T2_AI10" || json.tag === "KP5X_ABB_T2_AI17") {
         if(json.tag === "KP5X_ABB_T2_AI10") {
-          RP10_BBOD3.push({
-            ALM_TAGNAME: "RP10_BBOD3",
+          RP10_BBOD3_P.push({
+            ALM_TAGNAME: "RP10_BBOD3_P",
             ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
             ALM_VALUE: (realValues["KP5X_ABB_T2_AI17"].value * json.d * SQRT3 / 1000).toFixed(2)
           });
+
+          RP10_BBOD3_U.push({
+            ALM_TAGNAME: "RP10_BBOD3_U",
+            ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+            ALM_VALUE: json.d.toFixed(2)
+          });
         }
         else {
-          RP10_BBOD3.push({
-            ALM_TAGNAME: "RP10_BBOD3",
+          RP10_BBOD3_P.push({
+            ALM_TAGNAME: "RP10_BBOD3_P",
             ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
             ALM_VALUE: (realValues["KP5X_ABB_T2_AI10"].value * json.d * SQRT3 / 1000).toFixed(2)
           });
         }
     } else if(json.tag === "KP5X_ABB_T2_AI13") {
-        RP10_BBOD2.push({
-          ALM_TAGNAME: "RP10_BBOD2",
+        RP10_BBOD2_P.push({
+          ALM_TAGNAME: "RP10_BBOD2_P",
           ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
           ALM_VALUE: (realValues["KP5X_ABB_T2_AI14"].value * json.d * SQRT3 / 1000).toFixed(2)
         });
+
+        RP10_BBOD2_U.push({
+          ALM_TAGNAME: "RP10_BBOD2_U",
+          ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+          ALM_VALUE: json.d.toFixed(2)
+        });
     }
     else {
-          RP10_BBOD2.push({
-            ALM_TAGNAME: "RP10_BBOD2",
+          RP10_BBOD2_P.push({
+            ALM_TAGNAME: "RP10_BBOD2_P",
             ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
             ALM_VALUE: (realValues["KP5X_ABB_T2_AI13"].value * json.d * SQRT3 / 1000).toFixed(2)
           });
