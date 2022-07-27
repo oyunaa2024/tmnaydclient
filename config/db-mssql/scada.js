@@ -28,6 +28,7 @@ const models = [
     require("../../models/Scada/Last_24Hour_AI_Graphic_m"),
     require("../../models/Scada/Last_24Hour_AI_Graphic_m1"),
     require("../../models/Scada/Calculated_AI1"),
+    require("../../models/Scada/FIXALARMS"),
 ];
 
 models.forEach(model => {
