@@ -100,11 +100,11 @@ async function init() {
             .catch(err => console.log(err.message));
 
           RP10_BBOD3_P.forEach(el => {
-            valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', 'ALARM', 'RATE' ),`
+            valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', '', 'ALARM', 'RATE' ),`
           });
 
           db_scada.sequelize.query(`
-            INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_MSGTYPE, ALM_ALMSTATUS)
+            INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_UNIT ,ALM_MSGTYPE, ALM_ALMSTATUS)
             VALUES 
             ${valueStr.slice(0, -1)}`
           )
@@ -126,11 +126,11 @@ async function init() {
           valueStr = "";
 
           RP10_BBOD2_P.forEach(el => {
-            valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', 'ALARM', 'RATE' ),`
+            valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', '', 'ALARM', 'RATE' ),`
           });
 
           db_scada.sequelize.query(`
-            INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_MSGTYPE, ALM_ALMSTATUS)
+            INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_UNIT, ALM_MSGTYPE, ALM_ALMSTATUS)
             VALUES 
             ${valueStr.slice(0, -1)}`
           )
