@@ -11,21 +11,15 @@ const db_scada = require("./config/db-mssql/scada");
 const tags = [
   "KP5X_ABB_T2_AI10",  //Оролт-2 voltage
   "KP5X_ABB_T2_AI14",  //Оролт-2 current
-  "KP5X_ABB_T2_AI21",  //Оролт-2 power
   "KP5X_ABB_T2_AI13",  //Оролт-3 voltage
   "KP5X_ABB_T2_AI17",   //Оролт-3 current
-  "KP5X_ABB_T2_AI26"   //Оролт-3 current
 ];
 
 const id = makeID(20);
 let realValues = {};
 let RP10_BBOD3_P = [];
-let RP10_BBOD3_P_M = [];
-let RP10_BBOD3_U = [];
 
 let RP10_BBOD2_P = [];
-let RP10_BBOD2_P_M = [];
-let RP10_BBOD2_U = [];
 
 const SQRT3 = Math.sqrt(3);
 
@@ -52,30 +46,6 @@ async function init() {
       ALM_TAGNAME: "KP5X_ABB_T2_AI260", //Оролт-3 чадал кВт
       ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
       ALM_VALUE: (realValues["KP5X_ABB_T2_AI13"].value * realValues["KP5X_ABB_T2_AI17"].value * SQRT3 / 1000).toFixed(2)
-    });
-
-    RP10_BBOD2_U.push({
-      ALM_TAGNAME: "KP5X_ABB_T2_AI10", //Оролт-2 voltage
-      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-      ALM_VALUE: realValues["KP5X_ABB_T2_AI10"].value.toFixed(2)
-    });
-
-    RP10_BBOD3_U.push({
-      ALM_TAGNAME: "KP5X_ABB_T2_AI13", //Оролт-3 voltage
-      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-      ALM_VALUE: realValues["KP5X_ABB_T2_AI13"].value.toFixed(2)
-    });
-
-    RP10_BBOD2_P_M.push({
-      ALM_TAGNAME: "KP5X_ABB_T2_AI21", //Оролт-2 power
-      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-      ALM_VALUE: realValues["KP5X_ABB_T2_AI21"].value.toFixed(2)
-    });
-
-    RP10_BBOD3_P_M.push({
-      ALM_TAGNAME: "KP5X_ABB_T2_AI26", //Оролт-3 power
-      ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-      ALM_VALUE: realValues["KP5X_ABB_T2_AI26"].value.toFixed(2)
     });
 
     const on_connect = async () => {
@@ -129,32 +99,6 @@ async function init() {
           .catch(err => console.log(err.message));
       }
 
-      if(RP10_BBOD3_P_M.length > 0) {
-        db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD3_P_M])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD3_P (MBT) -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-            .catch(err => console.log(err.message));
-
-        valueStr = "";
-
-        RP10_BBOD3_P_M.forEach(el => {
-          valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', '', 'ALARM', 'RATE' ),`
-        });
-
-        db_scada.sequelize.query(`
-          INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_UNIT ,ALM_MSGTYPE, ALM_ALMSTATUS)
-          VALUES 
-          ${valueStr.slice(0, -1)}`
-        )
-        .then(res => console.log("<-- INSERTED TO (FIXALARMS) BBOD3_P (MBT) -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-        .catch(err => console.log(err.message));
-      }
-
-      if(RP10_BBOD3_U.length > 0){
-          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD3_U])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD3_U -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-            .catch(err => console.log(err.message));
-      }
-
       if(RP10_BBOD2_P.length > 0){
           db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2_P])
             .then(res => console.log("<-- INSERTED TO SQL BBOD2_P -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
@@ -175,129 +119,53 @@ async function init() {
           .catch(err => console.log(err.message));
       }
 
-      if(RP10_BBOD2_P_M.length > 0) {
-        db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2_P_M])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD2_P (MBT) -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-            .catch(err => console.log(err.message));
-
-        valueStr = "";
-
-        RP10_BBOD2_P_M.forEach(el => {
-          valueStr = valueStr + `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', '', 'ALARM', 'RATE' ),`
-        });
-
-        db_scada.sequelize.query(`
-          INSERT INTO [FIXALARMS] (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_UNIT ,ALM_MSGTYPE, ALM_ALMSTATUS)
-          VALUES 
-          ${valueStr.slice(0, -1)}`
-        )
-        .then(res => console.log("<-- INSERTED TO (FIXALARMS) BBOD2_P (MBT) -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-        .catch(err => console.log(err.message));
-      }
-
-      if(RP10_BBOD2_U.length > 0){
-          db_scada.Calculated_AI1.bulkCreate([...RP10_BBOD2_U])
-            .then(res => console.log("<-- INSERTED TO SQL BBOD2_U -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
-            .catch(err => console.log(err.message));
-      }
-
       RP10_BBOD3_P = [];
       RP10_BBOD2_P = [];
-      RP10_BBOD3_P_M = [];
-      RP10_BBOD2_P_M = [];
-      RP10_BBOD3_U = [];
-      RP10_BBOD2_U = [];
 
     }, 1000 * 60);
 
       
     
   } catch (err) {
-      console.log(
-        "Init функц дотроос алдаа гарлаа ==> Error :",
-        err.response ? err.response.data : err.message
-      );
-      let now = dayjs();
-      console.log(now.format("YYYY-MM-DD HH:mm:ss"));
-
-      clearInterval(myTimer);
+    console.log(`${dayjs().format("YYYY-MM-DD HH:mm:ss")} Init функц дотроос алдаа баригдлаа :`, err.message);
+    insertTimer && clearInterval(insertTimer);
   }
 }
 
-// "KP5X_ABB_T2_AI13",  //Оролт-3 voltage
-// "KP5X_ABB_T2_AI17"   //Оролт-3 current
-// KP5X_ABB_T2_AI260 //оролт 3 power
-
-// "KP5X_ABB_T2_AI10",  //Оролт-2 voltage
-// "KP5X_ABB_T2_AI14",  //Оролт-2 current
-// KP5X_ABB_T2_AI210 //оролт 2 power
-
-
-
 
 function calculatePower(json){
-    if(json.tag === "KP5X_ABB_T2_AI13" || json.tag === "KP5X_ABB_T2_AI17") {
-        if(json.tag === "KP5X_ABB_T2_AI13") {
-          RP10_BBOD3_P.push({
-            ALM_TAGNAME: "KP5X_ABB_T2_AI260",
-            ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-            ALM_VALUE: (realValues["KP5X_ABB_T2_AI17"].value * json.d * SQRT3 / 1000).toFixed(2)
-          });
 
-          RP10_BBOD3_U.push({
-            ALM_TAGNAME: "KP5X_ABB_T2_AI13",
-            ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-            ALM_VALUE: json.d.toFixed(2)
-          });
-        }
-        else {
-          RP10_BBOD3_P.push({
-            ALM_TAGNAME: "KP5X_ABB_T2_AI260",
-            ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-            ALM_VALUE: (realValues["KP5X_ABB_T2_AI13"].value * json.d * SQRT3 / 1000).toFixed(2)
-          });
-        }
-    }
-
-    if(json.tag === "KP5X_ABB_T2_AI10" || json.tag === "KP5X_ABB_T2_AI14"){
-
-      if(json.tag === "KP5X_ABB_T2_AI10") {
+    switch (json.tag) {
+      case "KP5X_ABB_T2_AI13":
+        RP10_BBOD3_P.push({
+          ALM_TAGNAME: "KP5X_ABB_T2_AI260",
+          ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+          ALM_VALUE: (realValues["KP5X_ABB_T2_AI17"].value * json.d * SQRT3 / 1000).toFixed(2)
+        });
+        break;
+      case "KP5X_ABB_T2_AI17":
+        RP10_BBOD3_P.push({
+          ALM_TAGNAME: "KP5X_ABB_T2_AI260",
+          ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
+          ALM_VALUE: (realValues["KP5X_ABB_T2_AI13"].value * json.d * SQRT3 / 1000).toFixed(2)
+        });
+        break;
+      case "KP5X_ABB_T2_AI10":
         RP10_BBOD2_P.push({
           ALM_TAGNAME: "KP5X_ABB_T2_AI210",
           ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
           ALM_VALUE: (realValues["KP5X_ABB_T2_AI14"].value * json.d * SQRT3 / 1000).toFixed(2)
         });
-
-        RP10_BBOD2_U.push({
-          ALM_TAGNAME: "KP5X_ABB_T2_AI10",
+        break;
+      case "KP5X_ABB_T2_AI14":
+        RP10_BBOD2_P.push({
+          ALM_TAGNAME: "KP5X_ABB_T2_AI210",
           ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-          ALM_VALUE: json.d.toFixed(2)
+          ALM_VALUE: (realValues["KP5X_ABB_T2_AI10"].value * json.d * SQRT3 / 1000).toFixed(2)
         });
-      }
-      else {
-            RP10_BBOD2_P.push({
-              ALM_TAGNAME: "KP5X_ABB_T2_AI210",
-              ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-              ALM_VALUE: (realValues["KP5X_ABB_T2_AI10"].value * json.d * SQRT3 / 1000).toFixed(2)
-            });
-      }
-
-    }
-
-    if(json.tag === "KP5X_ABB_T2_AI21"){
-      RP10_BBOD2_P_M.push({
-        ALM_TAGNAME: "KP5X_ABB_T2_AI21", // Оролт-2 power
-        ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-        ALM_VALUE: json.d.toFixed(2)
-      });
-    }
-
-    if(json.tag === "KP5X_ABB_T2_AI26"){
-      RP10_BBOD3_P_M.push({
-        ALM_TAGNAME: "KP5X_ABB_T2_AI26", // Оролт-3 power
-        ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-        ALM_VALUE: json.d.toFixed(2)
-      });
+        break;
+      default:
+      // code block
     }
 
 }
