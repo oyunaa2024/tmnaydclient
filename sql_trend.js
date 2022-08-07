@@ -76,7 +76,7 @@ async function init() {
       Object.keys(store).forEach((tag ,index) => store[tag].values.push({
         ALM_TAGNAME: tag,
         ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-        ALM_VALUE: JSON.parse(response.data[index]).d.toFixed(2)
+        ALM_VALUE: (JSON.parse(response.data[index]).d / 10000).toFixed(2)
       }));
       
       console.log("Тагууд анхны утгаа авсан...");
@@ -95,7 +95,7 @@ async function init() {
           store[json.tag].values.push({
             ALM_TAGNAME: json.tag,
             ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-            ALM_VALUE: json.d.toFixed(2)
+            ALM_VALUE: (json.d / 10000).toFixed(2)
           });
           
         });
