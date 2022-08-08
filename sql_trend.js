@@ -10,59 +10,73 @@ const db_scada = require("./config/db-mssql/scada");
 const store = {
   KP5X_ABB_T2_AI10:{
     values:[],
-    name:"Оролт-2 хүчдэл"
+    name:"Оролт-2 хүчдэл",
+    scale: 1
   },
   KP5X_ABB_T2_AI14:{
     values:[],
-    name:"Оролт-2 гүйдэл"
+    name:"Оролт-2 гүйдэл",
+    scale: 1
   },
   KP5X_ABB_T2_AI21:{
     values:[],
-    name:"Оролт-2 чадал (МВт)"
+    name:"Оролт-2 чадал (МВт)",
+    scale: 1
   },
   KP5X_ABB_T2_AI13:{
     values:[],
-    name:"Оролт-3 хүчдэл"
+    name:"Оролт-3 хүчдэл",
+    scale: 1
   },
   KP5X_ABB_T2_AI17:{
     values:[],
-    name:"Оролт-3 гүйдэл"
+    name:"Оролт-3 гүйдэл",
+    scale: 1
   },
   KP5X_ABB_T2_AI26:{
     values:[],
-    name:"Оролт-3 чадал (МВт)"
+    name:"Оролт-3 чадал (МВт)",
+    scale: 1
   },
   KP5X_ABB_F103_AI1:{
     values:[],
-    name:"Яч-103 чадал (кВт)"
+    name:"Яч-103 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F105_AI1:{
     values:[],
-    name:"Яч-105 чадал (кВт)"
+    name:"Яч-105 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F203_AI1:{
     values:[],
-    name:"Яч-203 чадал (кВт)"
+    name:"Яч-203 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F205_AI1:{
     values:[],
-    name:"Яч-205 чадал (кВт)"
+    name:"Яч-205 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F305_AI1:{
     values:[],
-    name:"Яч-305 чадал (кВт)"
+    name:"Яч-305 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F306_AI1:{
     values:[],
-    name:"Яч-306 чадал (кВт)"
+    name:"Яч-306 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F405_AI1:{
     values:[],
-    name:"Яч-405 чадал (кВт)"
+    name:"Яч-405 чадал (кВт)",
+    scale: 10000
   },
   KP5X_ABB_F406_AI1:{
     values:[],
-    name:"Яч-406 чадал (кВт)"
+    name:"Яч-406 чадал (кВт)",
+    scale: 10000
   },
 }
 
@@ -95,7 +109,7 @@ async function init() {
           store[json.tag].values.push({
             ALM_TAGNAME: json.tag,
             ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-            ALM_VALUE: (json.d / 10000).toFixed(2)
+            ALM_VALUE: (json.d / store[json.tag].scale).toFixed(2)
           });
           
         });
