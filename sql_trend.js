@@ -21,7 +21,7 @@ const store = {
   KP5X_ABB_T2_AI21:{
     values:[],
     name:"Оролт-2 чадал (МВт)",
-    scale: 1
+    scale: 1000000
   },
   KP5X_ABB_T2_AI13:{
     values:[],
@@ -36,7 +36,7 @@ const store = {
   KP5X_ABB_T2_AI26:{
     values:[],
     name:"Оролт-3 чадал (МВт)",
-    scale: 1
+    scale: 1000000
   },
   KP5X_ABB_F103_AI1:{
     values:[],
@@ -96,7 +96,7 @@ async function init() {
       console.log("Тагууд анхны утгаа авсан...");
 
       const on_connect = async () => {
-        console.log("WebSocket амжилттай холбогдлоо: sql_trend");
+        console.log("WebSocket амжилттай холбогдлоо: sql_trend.js");
 
         await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&${Object.keys(store).map(tag => `tags[]=ELEC_${tag}&`).join("")}`);
 
