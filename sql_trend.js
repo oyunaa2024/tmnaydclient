@@ -21,7 +21,7 @@ const store = {
   KP5X_ABB_T2_AI21:{
     values:[],
     name:"Оролт-2 чадал (МВт)",
-    scale: 1000000
+    scale: 1
   },
   KP5X_ABB_T2_AI13:{
     values:[],
@@ -36,7 +36,7 @@ const store = {
   KP5X_ABB_T2_AI26:{
     values:[],
     name:"Оролт-3 чадал (МВт)",
-    scale: 1000000
+    scale: 1
   },
   KP5X_ABB_F103_AI1:{
     values:[],
@@ -76,6 +76,16 @@ const store = {
   KP5X_ABB_F406_AI1:{
     values:[],
     name:"Яч-406 чадал (кВт)",
+    scale: 10000
+  },
+  KP5X_ABB_F403_AI1:{
+    values:[],
+    name:"Яч-403 чадал (кВт)",
+    scale: 10000
+  },
+  KP5X_ABB_F304_AI1:{
+    values:[],
+    name:"Яч-304 чадал (кВт)",
     scale: 10000
   },
 }
