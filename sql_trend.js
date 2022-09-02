@@ -100,7 +100,7 @@ async function init() {
       Object.keys(store).forEach((tag ,index) => store[tag].values.push({
         ALM_TAGNAME: tag,
         ALM_NATIVETIMELAST: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss.SSS"),
-        ALM_VALUE: (JSON.parse(response.data[index]).d / 10000).toFixed(2)
+        ALM_VALUE: (JSON.parse(response.data[index]).d / store[tag].scale).toFixed(2)
       }));
       
       console.log("Тагууд анхны утгаа авсан...");
@@ -132,15 +132,39 @@ async function init() {
 
       const insertTimer = setInterval(() => {
 
+         // [[...], [...]] -> [... ...]
         const insertData = [].concat(...Object.keys(store).map(tag => store[tag].values));
 
         if(insertData.length) {
+
             db_scada.Calculated_AI1.bulkCreate(insertData)
               .then(res => console.log(`-${dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}- SQL серверт амжилттай бичигдлээ...`))
               .catch(err =>{
                 console.log("SQL серверт бичих үед алдаа гарлаа :", err.message);
                 clearInterval(insertTimer);
               });
+
+
+            // [[...], [...]]
+            const arr = ['KP5X_ABB_F205_AI1', 'KP5X_ABB_F105_AI1'].map(tag => store[tag].values); 
+          
+            let valueStr = "";
+            [].concat(...arr).forEach(el => {
+              values += `('${el["ALM_NATIVETIMELAST"]}', '${el["ALM_NATIVETIMELAST"]}', '${el["ALM_TAGNAME"]}', '${el["ALM_VALUE"]}', '', 'ALARM', 'RATE' ),`
+            });
+            
+            db_scada.sequelize.query(`
+              INSERT INTO [FIXALARMS] 
+              (ALM_NATIVETIMEIN, ALM_NATIVETIMELAST, ALM_TAGNAME, ALM_VALUE, ALM_UNIT ,ALM_MSGTYPE, ALM_ALMSTATUS)
+              VALUES 
+              ${valueStr.slice(0, -1)}`
+            )
+              .then(res => console.log("<-- INSERTED TO (FIXALARMS) -->", dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")))
+              .catch(err => {
+                console.log("FIXALARMS-д бичих үед алдаа гарлаа :", err.message);
+                clearInterval(insertTimer);
+              });
+
 
             Object.keys(store).forEach(tag => store[tag].values.length = 0);
         }
