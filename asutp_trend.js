@@ -138,7 +138,7 @@ async function insertToSql() {
         const res = await axios(`http://localhost:8888/api/v1/signals/asutp/${tag}`);
         data.push({
             ALM_TAGNAME: tag,
-            ALM_NATIVETIMELAST: dayjs(res.data.result.SignalDate).format("YYYY-MM-DD HH:mm:ss"),
+            ALM_NATIVETIMELAST: res.data.result.SignalDate.replace("T", " ").substring(0, str.length - 5),
             ALM_VALUE: res.data.result.CurrentValue.toFixed(2)
         });
     }
