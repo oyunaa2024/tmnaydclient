@@ -4,6 +4,7 @@ const dayjs = require("dayjs");
 
 dotenv.config({ path: "./config/config.env" });
 const db_scada = require("./config/db-mssql/scada");
+const db_signal_asutp = require("./config/db-mssql/signal_asutp");
 
 
 const asutpAnalogSignalIds = {
@@ -135,11 +136,12 @@ const insertTimer = setInterval(() => {
 async function insertToSql() {
     const data = [];
     for (const [tag, value] of Object.entries(asutpAnalogSignalIds)) {
-        const res = await axios(`http://localhost:8888/api/v1/signals/asutp/${tag}`);
+        const res = await req.db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] ${tag}`);
+        
         data.push({
             ALM_TAGNAME: tag,
-            ALM_NATIVETIMELAST: res.data.result.SignalDate.replace("T", " ").substring(0, res.data.result.SignalDate.length - 5),
-            ALM_VALUE: res.data.result.CurrentValue == 65535 ? "0" : res.data.result.CurrentValue.toFixed(2)
+            ALM_NATIVETIMELAST: res[0][0].SignalDate.replace("T", " ").substring(0, res[0][0].SignalDate.length - 5),
+            ALM_VALUE: res[0][0].CurrentValue == 65535 ? "0" : res[0][0].CurrentValue.toFixed(2)
         });
     }
 
