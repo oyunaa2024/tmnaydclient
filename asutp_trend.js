@@ -140,7 +140,7 @@ async function insertToSql() {
         
         data.push({
             ALM_TAGNAME: tag,
-            ALM_NATIVETIMELAST: res[0][0].SignalDate.replace("T", " ").substring(0, res[0][0].SignalDate.length - 5),
+            ALM_NATIVETIMELAST: res[0][0].SignalDate.toString().replace("T", " ").substring(0, res[0][0].SignalDate.length - 5),
             ALM_VALUE: res[0][0].CurrentValue == 65535 ? "0" : res[0][0].CurrentValue.toFixed(2)
         });
     }
