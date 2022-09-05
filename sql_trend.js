@@ -24,7 +24,7 @@ const store = {
     values:[],
     lastValue: "",
     name:"Оролт-2 чадал (МВт)",
-    scale: 1
+    scale: 1000000
   },
   KP5X_ABB_T2_AI13:{
     values:[],
@@ -42,7 +42,7 @@ const store = {
     values:[],
     lastValue: "",
     name:"Оролт-3 чадал (МВт)",
-    scale: 1
+    scale: 1000000
   },
   KP5X_ABB_F103_AI1:{
     values:[],
