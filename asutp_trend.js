@@ -136,7 +136,7 @@ const insertTimer = setInterval(() => {
 async function insertToSql() {
     const data = [];
     for (const [tag, value] of Object.entries(asutpAnalogSignalIds)) {
-        const res = await req.db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] ${tag}`);
+        const res = await db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] ${tag}`);
         
         data.push({
             ALM_TAGNAME: tag,
