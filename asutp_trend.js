@@ -131,9 +131,9 @@ const asutpAnalogSignalIds = {
 // 300333 300334
 
 
-////const insertTimer = setInterval(() => {
+const insertTimer = setInterval(() => {
     insertToSql();
-//}, 60 * 1000);
+}, 60 * 1000);
 
 async function insertToSql() {
     const data = [];
