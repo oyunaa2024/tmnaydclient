@@ -131,23 +131,35 @@ const asutpAnalogSignalIds = {
 // 300333 300334
 
 
-const insertTimer = setInterval(() => {
+////const insertTimer = setInterval(() => {
     insertToSql();
-}, 60 * 1000);
+//}, 60 * 1000);
 
 async function insertToSql() {
     const data = [];
-    for (const [tag, value] of Object.entries(asutpAnalogSignalIds)) {
-        const res = await db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] ${tag}`);
+    let res, alm_value, alm_nativetimelast;
 
-        
+    for (const [tag, value] of Object.entries(asutpAnalogSignalIds)) {
+
+        res = await db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] ${tag}`);
+        alm_value = res[0][0].CurrentValue == 65535 ? 0 : res[0][0].CurrentValue;
+        alm_nativetimelast = dayjs.utc(res[0][0].SignalDate).format("YYYY-MM-DD HH:mm:ss");
+
+        if(tag == "300332"){
+            res = await db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] 300331`);
+            alm_value = alm_value + res[0][0].CurrentValue == 65535 ? 0 : res[0][0].CurrentValue;
+        }
+        else if(tag == "300334") {
+            res = await db_signal_asutp.sequelize.query(`exec [Sp_DeviceAsutpASelectLastValueByID] 300333`);
+            alm_value = alm_value + res[0][0].CurrentValue == 65535 ? 0 : res[0][0].CurrentValue;
+        }
+
         data.push({
             ALM_TAGNAME: tag,
-            ALM_NATIVETIMELAST: dayjs.utc(res[0][0].SignalDate).format("YYYY-MM-DD HH:mm:ss"),
-            ALM_VALUE: res[0][0].CurrentValue == 65535 ? "0" : res[0][0].CurrentValue.toFixed(2)
+            ALM_NATIVETIMELAST: alm_nativetimelast,
+            ALM_VALUE: (alm_value).toFixed(3)
         });
     }
-
 
    db_scada.Calculated_AI1.bulkCreate(data)
     .then(res => console.log(`-${dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")}- SQL серверт амжилттай бичигдлээ...`))
