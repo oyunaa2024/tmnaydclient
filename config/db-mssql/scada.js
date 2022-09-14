@@ -10,11 +10,14 @@ const sequelize = new Sequelize(
         host: process.env.SCADA_HOST,
         port: process.env.SCADA_PORT,
         dialect: process.env.SCADA_DIALECT,
+        dialectOptions: {
+            requestTimeout: 30000,
+        },
         define: {
             freezeTableName: true,
         },
         pool: {
-            max: 10,
+            max: 20,
             min: 0,
             acquire: 60000,
             idle: 10000,
