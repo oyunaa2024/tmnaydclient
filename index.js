@@ -18,8 +18,11 @@ async function init() {
       res = await axios(
         `https://nayd.erdenetmc.mn/service/redis/get.php?tags[]=ELEC_${tag}`
       );
+
+      const resData = res.data[0] === false ? "{\"d\":0}" : res.data[0];
+
       realValues[tag] = {
-        value: JSON.parse(res.data[0]).d,
+        value: JSON.parse(resData).d,
         timestamp: Date.now(),
       };
       sum[tag] = {
@@ -49,11 +52,7 @@ async function init() {
         let nowTimestamp = Date.now();
         let millSec = nowTimestamp - realValues[json.tag].timestamp;
 
-        sum[json.tag].value = parseFloat(
-          (sum[json.tag].value + realValues[json.tag].value * millSec).toFixed(
-            2
-          )
-        );
+        sum[json.tag].value = parseFloat((sum[json.tag].value + realValues[json.tag].value * millSec).toFixed(2));
         sum[json.tag].count += millSec;
 
         realValues[json.tag].value = json.d;
@@ -89,14 +88,7 @@ async function init() {
         let nowTimestamp = Date.now();
 
         for (let [key, obj] of Object.entries(sumCopy)) {
-          average[key] = parseFloat(
-            (
-              (obj.value +
-                realValuesCopy[key].value *
-                  (nowTimestamp - realValuesCopy[key].timestamp)) /
-              (obj.count + (nowTimestamp - realValuesCopy[key].timestamp))
-            ).toFixed(2)
-          );
+          average[key] = parseFloat(((obj.value + realValuesCopy[key].value * (nowTimestamp - realValuesCopy[key].timestamp)) / (obj.count + (nowTimestamp - realValuesCopy[key].timestamp))).toFixed(2));
           realValuesCopy[key].timestamp = nowTimestamp;
           sumCopy[key] = {
             value: 0,
@@ -110,24 +102,20 @@ async function init() {
         // console.log(`"${now.format('YYYY-MM-DD HH:mm:ss')}" 1 минутын дундаж SQL серверлүү бичигдлээ`, average["KP3_PII_KOTB_AI1"]);
         // console.log("-----------------------------------------------------------------------------------------------------------------\n")
 
+        // Object.entries(average).map(el => console.log(el))
+
         db_scada.Last_24Hour_AI_Graphic_m1.create({
           ValueDate: now.format("YYYY-MM-DD HH:mm:ss"),
           ...average,
         })
           .then((r) => {
             console.log(
-              `"${now.format(
-                "YYYY-MM-DD HH:mm:ss"
-              )}" 1 минутын дундаж SQL серверлүү бичигдлээ`,
+              `"${now.format("YYYY-MM-DD HH:mm:ss" )}" 1 минутын дундаж SQL серверлүү бичигдлээ`,
               average["KP3_PII_KOTB_AI1"]
             );
-            console.log(
-              ".........................................................................................."
-            );
+            console.log("..........................................................................................");
           })
-          .catch((err) =>
-            console.log(err.response ? err.response.data : err.message)
-          );
+          .catch((err) => console.log(err.message));
       }
     }, 1000);
     
