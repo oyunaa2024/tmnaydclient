@@ -110,11 +110,23 @@ const store = {
     name:"Яч-403 чадал (кВт)",
     scale: 10000
   },
+  KP5X_UCOM_F403_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Яч-403 Б.насос-31 чадал (МВт)",
+    scale: 1
+  },
   KP5X_ABB_F304_AI1:{
     values:[],
     lastValue: "",
     name:"Яч-304 чадал (кВт)",
     scale: 10000
+  },
+  KP5X_UCOM_F304_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Яч-304 Б.насос-30 чадал (МВт)",
+    scale: 1
   },
   KP5X_UCOM_F201_AI3:{
     values:[],
