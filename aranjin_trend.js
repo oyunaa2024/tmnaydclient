@@ -56,6 +56,12 @@ const store = {
     name:"Яч-105 чадал (кВт)",
     scale: 10000
   },
+  KP5X_UCOM_F105_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Яч-105 МШЦ-8 чадал (МВт)",
+    scale: 1
+  },
   KP5X_ABB_F203_AI1:{
     values:[],
     lastValue: "",
@@ -67,6 +73,12 @@ const store = {
     lastValue: "",
     name:"Яч-205 чадал (кВт)",
     scale: 10000
+  },
+  KP5X_UCOM_F205_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Яч-205 МПСИ-7 чадал (МВт)",
+    scale: 1
   },
   KP5X_ABB_F305_AI1:{
     values:[],
@@ -103,6 +115,12 @@ const store = {
     lastValue: "",
     name:"Яч-304 чадал (кВт)",
     scale: 10000
+  },
+  KP5X_UCOM_F201_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Яч-201 Хүчдэл (В)",
+    scale: 0.578
   },
 }
 
