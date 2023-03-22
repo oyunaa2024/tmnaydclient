@@ -134,6 +134,12 @@ const store = {
     name:"Яч-201 Хүчдэл (В)",
     scale: 0.578
   },
+  KP5X_UCOM_F402_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Яч-402 Хүчдэл (В)",
+    scale: 0.578
+  },
 }
 
 const id = makeID(20);
