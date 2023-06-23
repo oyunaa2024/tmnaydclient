@@ -23,7 +23,7 @@ const sequelize = new Sequelize(
             idle: 10000,
         },
         operatorAliases: false,
-        logging: false
+        logging: true
     }
 );
 
