@@ -1142,10 +1142,6 @@ exports.tags = [
 "KP2_AI37",
 "KP2_AI38",
 "KP2_AI39",
-"KP2_AI40",
-"KP2_AI41",
-"KP2_AI42",
-"KP2_AI43",
 "KP3_AI1",
 "KP3_AI2",
 "KP3_AI3",
@@ -1655,5 +1651,9 @@ exports.tags = [
 "KP5X_ABB_T2_AI21",
 "KP5X_ABB_T2_AI0",
 "KP5X_ABB_T2_AI3",
-"KP5X_ABB_T2_AI4"
+"KP5X_ABB_T2_AI4",
+"KP2_AI40",
+"KP2_AI41",
+"KP2_AI42",
+"KP2_AI43"
 ]
