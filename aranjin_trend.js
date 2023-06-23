@@ -139,7 +139,7 @@ const store = {
     lastValue: "",
     name:"Яч-402 Хүчдэл (В)",
     scale: 0.578
-  },
+  }
 }
 
 const id = makeID(20);
