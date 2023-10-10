@@ -139,7 +139,49 @@ const store = {
     lastValue: "",
     name:"Яч-402 Хүчдэл (В)",
     scale: 0.578
-  }
+  },
+  KP5X_ABB_SEC1_AI6:{
+    values:[],
+    lastValue: "",
+    name:"Чадал I секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC1_AI4:{
+    values:[],
+    lastValue: "",
+    name:"Хүчдэл I секц (В)",
+    scale: 6.3
+  },
+  KP5X_ABB_SEC1_AI1:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл А фаз I секц (В)",
+    scale: 3
+  },
+  KP5X_ABB_SEC1_AI2:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл В фаз I секц (В)",
+    scale: 3
+  },
+  KP5X_ABB_SEC1_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл С фаз I секц (В)",
+    scale: 3
+  },
+  KP5X_ABB_SEC1_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Cos I секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC1_AI5:{
+    values:[],
+    lastValue: "",
+    name:"Давтамж I секц (В)",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
