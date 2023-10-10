@@ -150,25 +150,25 @@ const store = {
     values:[],
     lastValue: "",
     name:"Хүчдэл I секц (В)",
-    scale: 6.3
+    scale: 0.1587
   },
   KP5X_ABB_SEC1_AI1:{
     values:[],
     lastValue: "",
     name:"Гүйдэл А фаз I секц (В)",
-    scale: 3
+    scale: 0.3333
   },
   KP5X_ABB_SEC1_AI2:{
     values:[],
     lastValue: "",
     name:"Гүйдэл В фаз I секц (В)",
-    scale: 3
+    scale: 0.3333
   },
   KP5X_ABB_SEC1_AI3:{
     values:[],
     lastValue: "",
     name:"Гүйдэл С фаз I секц (В)",
-    scale: 3
+    scale: 0.3333
   },
   KP5X_ABB_SEC1_AI7:{
     values:[],
