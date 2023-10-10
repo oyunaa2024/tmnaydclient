@@ -182,6 +182,132 @@ const store = {
     name:"Давтамж I секц (В)",
     scale: 1
   },
+  KP5X_ABB_SEC2_AI6:{
+    values:[],
+    lastValue: "",
+    name:"Чадал II секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC2_AI4:{
+    values:[],
+    lastValue: "",
+    name:"Хүчдэл II секц (В)",
+    scale: 0.1587
+  },
+  KP5X_ABB_SEC2_AI1:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл А фаз II секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC2_AI2:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл В фаз II секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC2_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл С фаз II секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC2_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Cos II секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC2_AI5:{
+    values:[],
+    lastValue: "",
+    name:"Давтамж II секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC3_AI6:{
+    values:[],
+    lastValue: "",
+    name:"Чадал III секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC3_AI4:{
+    values:[],
+    lastValue: "",
+    name:"Хүчдэл III секц (В)",
+    scale: 0.1587
+  },
+  KP5X_ABB_SEC3_AI1:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл А фаз III секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC3_AI2:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл В фаз III секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC3_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл С фаз III секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC3_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Cos III секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC3_AI5:{
+    values:[],
+    lastValue: "",
+    name:"Давтамж III секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC4_AI6:{
+    values:[],
+    lastValue: "",
+    name:"Чадал IV секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC4_AI4:{
+    values:[],
+    lastValue: "",
+    name:"Хүчдэл IV секц (В)",
+    scale: 0.1587
+  },
+  KP5X_ABB_SEC4_AI1:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл А фаз IV секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC4_AI2:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл В фаз IV секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC4_AI3:{
+    values:[],
+    lastValue: "",
+    name:"Гүйдэл С фаз IV секц (В)",
+    scale: 0.3333
+  },
+  KP5X_ABB_SEC4_AI7:{
+    values:[],
+    lastValue: "",
+    name:"Cos IV секц (В)",
+    scale: 1
+  },
+  KP5X_ABB_SEC4_AI5:{
+    values:[],
+    lastValue: "",
+    name:"Давтамж IV секц (В)",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
