@@ -8,6 +8,42 @@ dotenv.config({ path: "./config/config.env" });
 const db_scada = require("./config/db-mssql/scada");
 
 const store = {
+  KP5X_ABB_T1_AI0:{
+    values:[],
+    lastValue: "",
+    name:"T-1 110kv current A phase",
+    scale: 1
+  },
+  KP5X_ABB_T1_AI3:{
+    values:[],
+    lastValue: "",
+    name:"T-1 110kv current B phase",
+    scale: 1
+  },
+  KP5X_ABB_T1_AI4:{
+    values:[],
+    lastValue: "",
+    name:"T-1 110kv current C phase",
+    scale: 1
+  },
+  KP5X_ABB_T2_AI0:{
+    values:[],
+    lastValue: "",
+    name:"T-2 110kv current A phase",
+    scale: 1
+  },
+  KP5X_ABB_T2_AI3:{
+    values:[],
+    lastValue: "",
+    name:"T-2 110kv current B phase",
+    scale: 1
+  },
+  KP5X_ABB_T2_AI4:{
+    values:[],
+    lastValue: "",
+    name:"T-2 110kv current C phase",
+    scale: 1
+  },
   KP5X_ABB_T2_AI10:{
     values:[],
     lastValue: "",
