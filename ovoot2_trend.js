@@ -167,7 +167,7 @@ async function init() {
 
         // Хүснэгтийн бодолтонд оруулах тагийг энд оруулна. Энд оруулсан тагууд FIXALARMS табелрүү орно.
         // [[...], [...]]
-        const arr = ['OVT2_UCOM_F17_AI12', 'OVT2_UCOM_F18_AI12'].map(tag => {
+        const arr = ['OVT2_UCOM_F17_AI12', 'OVT2_UCOM_F18_AI12', 'OVT2_UCOM_F15_AI1', 'OVT2_UCOM_F16_AI1', 'OVT2_UCOM_T2_AI4', 'OVT2_UCOM_T1_AI4'].map(tag => {
           if(store[tag].values.length == 0){
             return [{
               ALM_TAGNAME: tag,
