@@ -32,7 +32,7 @@ const store = {
     name: "ЦРП-5 яч27 ЗМЦ IIс (МВт.цаг)",
     scale: 1
   },
-  KP11_AI7: {
+  KP11_AI9: {
     values: [],
     lastValue: "",
     name: "ЦРП-5 яч7 ЦЦ Iс (МВт.цаг)",
