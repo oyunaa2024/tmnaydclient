@@ -78,7 +78,7 @@ async function init() {
     console.log("Тагууд анхны утгаа авсан...");
 
     const on_connect = async () => {
-      console.log("WebSocket амжилттай холбогдлоо: aranjin_trend.js");
+      console.log("WebSocket амжилттай холбогдлоо: table_data.js");
 
       await axios.get(`https://nayd.erdenetmc.mn/service/rmq/bind.php?id=${id}&${Object.keys(store).map(tag => `tags[]=ELEC_${tag}&`).join("")}`);
 
