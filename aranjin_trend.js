@@ -424,7 +424,7 @@ async function init() {
 
 
       // [[...], [...]]
-      const arr = ['KP5X_ABB_F205_AI1', 'KP5X_ABB_F105_AI1', 'KP5X_ABB_SEC1_AI6', 'KP5X_ABB_SEC2_AI6', 'KP5X_ABB_SEC3_AI6', 'KP5X_ABB_SEC4_AI6'].map(tag => {
+      const arr = ['KP5X_ABB_F205_AI1', 'KP5X_ABB_F105_AI1', 'KP5X_ABB_SEC1_AI6', 'KP5X_ABB_SEC2_AI6', 'KP5X_ABB_SEC3_AI6', 'KP5X_ABB_SEC4_AI6', 'KP5X_ABB_F402_AI1'].map(tag => {
         if (store[tag].values.length == 0) {
           return [{
             ALM_TAGNAME: tag,
