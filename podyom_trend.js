@@ -98,6 +98,18 @@ const store = {
     name: "УӨС-IV Актив мошность насос-5",
     scale: 1
   },
+  SIM31_N4_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора, насос - 4",
+    scale: 1
+  },
+  SIM31_N1_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора насос-1",
+    scale: 1
+  },
   SIM30_N1_DBD28: {
     values: [],
     lastValue: "",
@@ -188,6 +200,18 @@ const store = {
     name: "УӨС-III Актив мошность насос-5",
     scale: 1
   },
+  SIM30_N4_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора, насос - 4",
+    scale: 1
+  },
+  SIM30_N1_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора насос-1",
+    scale: 1
+  },
   SIM29_N1_DBD28: {
     values: [],
     lastValue: "",
@@ -276,6 +300,18 @@ const store = {
     values: [],
     lastValue: "",
     name: "УӨС-II Актив мошность насос-5",
+    scale: 1
+  },
+  SIM29_N4_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора, насос - 4",
+    scale: 1
+  },
+  SIM29_N1_DBD36: {
+    values: [],
+    lastValue: "",
+    name: "Давление коллектора насос-1",
     scale: 1
   },
 }
