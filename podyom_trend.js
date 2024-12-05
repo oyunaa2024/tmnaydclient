@@ -314,6 +314,24 @@ const store = {
     name: "Давление коллектора насос-1",
     scale: 1
   },
+  KP29_AI7: {
+    values: [],
+    lastValue: "",
+    name: "2907",
+    scale: 1
+  },
+  KP29_AI4: {
+    values: [],
+    lastValue: "",
+    name: "2904",
+    scale: 1
+  },
+  KP29_AI3: {
+    values: [],
+    lastValue: "",
+    name: "2903",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
@@ -389,7 +407,7 @@ async function init() {
 
       // Хүснэгтийн бодолтонд оруулах тагийг энд оруулна. Энд оруулсан тагууд FIXALARMS табелрүү орно.
       // [[...], [...]]
-      const arr = ['SIM31_N1_DBD24'].map(tag => {
+      const arr = ['SIM31_N1_DBD24', 'KP29_AI7', 'KP29_AI4', 'KP29_AI3'].map(tag => {
         if (store[tag].values.length == 0) {
           return [{
             ALM_TAGNAME: tag,
