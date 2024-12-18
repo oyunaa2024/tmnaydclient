@@ -112,5 +112,5 @@ const loadAranjinTooluur = async () => {
 
 
 
-// loadAranjinTooluur();
+loadAranjinTooluur();
 scheduleFunctionEvery30Minutes();
