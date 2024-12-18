@@ -70,7 +70,7 @@ const loadAranjinTooluur = async () => {
 
       let AK_SUM, RASH_POLN, POK_START_BEFORE, VAL = null;
 
-      const POK_START = await ucomDevAranjin.read(Tooluuruud.aranjin[yach].register);  //Показания (Тоолуурын дэлгэц дээрх заалт)
+      const POK_START = await ucomDevAranjin.read(Tooluuruud.aranjin[yach].register) / 100;  //Показания (Тоолуурын дэлгэц дээрх заалт)
 
       // const POK_START = 391.03;
 
@@ -112,5 +112,5 @@ const loadAranjinTooluur = async () => {
 
 
 
-// loadAranjinTooluur();
+loadAranjinTooluur();
 scheduleFunctionEvery30Minutes();
