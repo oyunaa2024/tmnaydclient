@@ -64,15 +64,16 @@ const scheduleFunctionEvery30Minutes = () => {
 const loadAranjinTooluur = async () => {
 
   try {
-    const dateTime = dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss");
+    const dateTime = dayjs(new Date()).format("YYYY-MM-DD HH:mm");
 
     for (let yach in Tooluuruud.aranjin) {
 
       let AK_SUM, RASH_POLN, POK_START_BEFORE, VAL = null;
 
       const POK_START = await ucomDevAranjin.read(Tooluuruud.aranjin[yach].register) / 100;  //Показания (Тоолуурын дэлгэц дээрх заалт)
-
       // const POK_START = 391.03;
+
+      redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: POK_START, d: dateTime }));
 
       const res = await db_scada.sequelize.query(`
         SELECT TOP 1 [POK_START] 
@@ -92,7 +93,7 @@ const loadAranjinTooluur = async () => {
       RASH_POLN = (parseFloat(AK_SUM) * Tooluuruud.aranjin[yach].coefficientI * Tooluuruud.aranjin[yach].coefficientV).toFixed(4); //Энергия (Бодит хэргэлсэн энерги)
       VAL = RASH_POLN;
 
-      // redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: activeEnergy, d: dateTime }));
+
 
       db_scada.sequelize.query(`
           INSERT INTO [TOOLUUR] (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, AK_SUM, POK_START, RASH_POLN, IMPULSES)
