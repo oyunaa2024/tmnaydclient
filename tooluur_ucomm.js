@@ -100,8 +100,9 @@ const loadAranjinTooluur = async () => {
         type: QueryTypes.INSERT,
       });
 
+      console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
     }
-    console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
+
   }
   catch (err) {
     console.log("Аранжин тоолуур дуудах үед алдаа гарлаа:", err.message);
