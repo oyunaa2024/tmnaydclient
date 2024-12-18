@@ -489,7 +489,7 @@ async function init() {
       Object.keys(store).forEach(tag => store[tag].values.length = 0);
 
 
-    }, 1000 * 35); // ms * 35
+    }, 1000 * 35); // ms * 35sec
 
   }
   catch (err) {
