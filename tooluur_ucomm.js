@@ -2,6 +2,9 @@ const modbus = require('modbus')
 const dotenv = require("dotenv")
 const dayjs = require('dayjs')
 const { QueryTypes } = require('sequelize');
+const Redis = require('ioredis');
+
+const redisClient = new Redis();
 
 dotenv.config({ path: "./config/config.env" });
 const db_scada = require("./config/db-mssql/scada");
