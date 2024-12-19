@@ -98,7 +98,7 @@ const loadAranjinTooluur = async () => {
 
 
 
-      db_scada.sequelize.query(`
+      await db_scada.sequelize.query(`
           INSERT INTO [TOOLUUR] (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, AK_SUM, POK_START, RASH_POLN, IMPULSES)
           VALUES (5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', NULL, ${VAL}, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, NULL)`, {
         type: QueryTypes.INSERT,
