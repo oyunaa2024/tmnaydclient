@@ -28,7 +28,7 @@ const Tooluuruud = {
     y306: { id: 10000024, name: "КТП-25 Тр-1", register: "ir307-308", coefficientI: 150, coefficientV: 63 },
 
     y401: { id: 9000001, name: "Оруулга-4", register: "ir402-403", coefficientI: 3000, coefficientV: 63 },
-    y402: { id: 10000008, name: "МШЦ-9", register: "ir403-404", coefficientI: 200, coefficientV: 63 },
+    y402: { id: 10000008, name: "МШЦ-9", register: "ir403-404", coefficientI: 1200, coefficientV: 63 },
     y403: { id: 10000021, name: "Булингын насос-31", register: "ir404-405", coefficientI: 150, coefficientV: 63 },
     y405: { id: 10000011, name: "КТП E-house Тр-2", register: "ir406-407", coefficientI: 150, coefficientV: 63 },
     y406: { id: 10000022, name: "КТП-25 Тр-2", register: "ir407-408", coefficientI: 150, coefficientV: 63 },
