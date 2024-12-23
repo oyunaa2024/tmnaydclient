@@ -110,6 +110,18 @@ const store = {
     name: "Фидер-13 чадал",
     scale: 1
   },
+  OVT2_UCOM_F10_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Фидер-10 чадал",
+    scale: 1
+  },
+  OVT2_UCOM_F8_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Фидер-8 чадал",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
