@@ -68,6 +68,7 @@ const loadAranjinTooluur = async () => {
 
   try {
     const now = dayjs();
+    const dateTime = now.format("YYYY-MM-DD HH:mm");
     // const now = dayjs(new Date()).format("YYYY-MM-DD HH:mm");
 
     for (let yach in Tooluuruud.aranjin) {
@@ -77,7 +78,7 @@ const loadAranjinTooluur = async () => {
       const POK_START = await ucomDevAranjin.read(Tooluuruud.aranjin[yach].register) / 100;  //Показания (Тоолуурын дэлгэц дээрх заалт)
       // const POK_START = 391.03;
 
-      redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: POK_START, d: now.format("YYYY-MM-DD HH:mm") }));
+      redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: POK_START, d: dateTime }));
 
       const res = await db_scada.sequelize.query(`
         SELECT TOP 1 [POK_START] 
@@ -102,11 +103,11 @@ const loadAranjinTooluur = async () => {
 
       await db_scada.sequelize.query(`
           INSERT INTO [TOOLUUR] (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, AK_SUM, POK_START, RASH_POLN, IMPULSES)
-          VALUES (5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${now}', ${Math.floor(df1 / 30) + 1}, ${VAL}, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, NULL)`, {
+          VALUES (5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${Math.floor(df1 / 30) + 1}, ${VAL}, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, NULL)`, {
         type: QueryTypes.INSERT,
       });
 
-      console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${now}`);
+      console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
     }
 
   }
