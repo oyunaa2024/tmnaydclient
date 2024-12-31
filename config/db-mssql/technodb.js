@@ -4,7 +4,7 @@ var technodb = {};
 
 const sequelize = new Sequelize(
     process.env.TECHNODB_DATABASE,
-    process.env.TECHNODB__USER,
+    process.env.TECHNODB_USER,
     process.env.TECHNODB_USER_PASSWORD,
     {
         host: process.env.TECHNODB_HOST,

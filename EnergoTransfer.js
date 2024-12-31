@@ -8,6 +8,7 @@ const redisClient = new Redis();
 
 dotenv.config({ path: "./config/config.env" });
 const db_scada = require("./config/db-mssql/scada");
+const db_techno = require("./config/db-mssql/technodb");
 
 
 
@@ -101,11 +102,18 @@ const loadAranjinTooluur = async () => {
       let d1 = dayjs(now.format("YYYY-MM-DD"));
       let df1 = now.diff(d1, "minute");
 
+      // ТМ баазруу бичих
       await db_scada.sequelize.query(`
           INSERT INTO [TOOLUUR] (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, AK_SUM, POK_START, RASH_POLN, IMPULSES)
           VALUES (5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${Math.floor(df1 / 30) + 1}, ${VAL}, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, NULL)`, {
         type: QueryTypes.INSERT,
       });
+
+      // ХТАЦ баазруу бичих
+      await db_techno.sequelize.query(`
+          EXEC Sp_InsertLast72Hour_v112 
+            5, 5, 5, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${Math.floor(df1 / 30) + 1}, 1, 1, ${VAL}, 0, 0, 1, 30, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, 0
+      `);
 
       console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
     }
