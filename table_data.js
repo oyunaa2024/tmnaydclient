@@ -55,7 +55,7 @@ const store = {
     lastValue: "",
     name: "ЦРП-5 яч18 ТП-512 Т1 Эрдмин (МВт.цаг)",
     scale: 1
-  },
+  }
 }
 
 const id = makeID(20);

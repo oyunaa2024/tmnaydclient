@@ -380,6 +380,12 @@ const store = {
     name: "Pod 1 section 2",
     scale: 1
   },
+  SumPower35110: {
+    values: [],
+    lastValue: "",
+    name: "Үйлдвэрийн нийлбэр чадал",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
