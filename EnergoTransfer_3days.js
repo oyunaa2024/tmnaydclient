@@ -1,6 +1,6 @@
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
-const modbus = require('modbus')
+// const modbus = require('modbus')
 const dotenv = require("dotenv")
 const { QueryTypes } = require('sequelize');
 
@@ -13,23 +13,23 @@ dayjs.extend(utc);
 const Tooluuruud = {
     aranjin: {
         y101: { id: 9000004, name: "Оруулга-1", register: "ir102-103", coefficientI: 3000, coefficientV: 63 },
-        y103: { id: 10000018, name: "Эргэлт.усны насос-578", register: "ir104-105", coefficientI: 150, coefficientV: 63 },
-        y105: { id: 10000005, name: "МШЦ-8", register: "ir106-107", coefficientI: 1200, coefficientV: 63 },
+        // y103: { id: 10000018, name: "Эргэлт.усны насос-578", register: "ir104-105", coefficientI: 150, coefficientV: 63 },
+        // y105: { id: 10000005, name: "МШЦ-8", register: "ir106-107", coefficientI: 1200, coefficientV: 63 },
 
-        y201: { id: 9000003, name: "Оруулга-2", register: "ir202-203", coefficientI: 3000, coefficientV: 63 },
-        y203: { id: 10000004, name: "Эргэлт.усны насос-579", register: "ir204-205", coefficientI: 150, coefficientV: 63 },
-        y205: { id: 10000003, name: "МПСИ-7", register: "ir206-207", coefficientI: 1200, coefficientV: 63 },
+        // y201: { id: 9000003, name: "Оруулга-2", register: "ir202-203", coefficientI: 3000, coefficientV: 63 },
+        // y203: { id: 10000004, name: "Эргэлт.усны насос-579", register: "ir204-205", coefficientI: 150, coefficientV: 63 },
+        // y205: { id: 10000003, name: "МПСИ-7", register: "ir206-207", coefficientI: 1200, coefficientV: 63 },
 
-        y301: { id: 9000002, name: "Оруулга-3", register: "ir302-303", coefficientI: 3000, coefficientV: 63 },
-        y304: { id: 10000014, name: "Булингын насос-30", register: "ir305-306", coefficientI: 150, coefficientV: 63 },
-        y305: { id: 10000015, name: "КТП E-house Тр-1", register: "ir306-307", coefficientI: 150, coefficientV: 63 },
-        y306: { id: 10000024, name: "КТП-25 Тр-1", register: "ir307-308", coefficientI: 150, coefficientV: 63 },
+        // y301: { id: 9000002, name: "Оруулга-3", register: "ir302-303", coefficientI: 3000, coefficientV: 63 },
+        // y304: { id: 10000014, name: "Булингын насос-30", register: "ir305-306", coefficientI: 150, coefficientV: 63 },
+        // y305: { id: 10000015, name: "КТП E-house Тр-1", register: "ir306-307", coefficientI: 150, coefficientV: 63 },
+        // y306: { id: 10000024, name: "КТП-25 Тр-1", register: "ir307-308", coefficientI: 150, coefficientV: 63 },
 
-        y401: { id: 9000001, name: "Оруулга-4", register: "ir402-403", coefficientI: 3000, coefficientV: 63 },
-        y402: { id: 10000008, name: "МШЦ-9", register: "ir403-404", coefficientI: 1200, coefficientV: 63 },
-        y403: { id: 10000021, name: "Булингын насос-31", register: "ir404-405", coefficientI: 150, coefficientV: 63 },
-        y405: { id: 10000011, name: "КТП E-house Тр-2", register: "ir406-407", coefficientI: 150, coefficientV: 63 },
-        y406: { id: 10000022, name: "КТП-25 Тр-2", register: "ir407-408", coefficientI: 150, coefficientV: 63 },
+        // y401: { id: 9000001, name: "Оруулга-4", register: "ir402-403", coefficientI: 3000, coefficientV: 63 },
+        // y402: { id: 10000008, name: "МШЦ-9", register: "ir403-404", coefficientI: 1200, coefficientV: 63 },
+        // y403: { id: 10000021, name: "Булингын насос-31", register: "ir404-405", coefficientI: 150, coefficientV: 63 },
+        // y405: { id: 10000011, name: "КТП E-house Тр-2", register: "ir406-407", coefficientI: 150, coefficientV: 63 },
+        // y406: { id: 10000022, name: "КТП-25 Тр-2", register: "ir407-408", coefficientI: 150, coefficientV: 63 },
 
         // y102: { id: 524610000017, name: "Нөөц", register: "ir103-104" },
         // y104: { id: 524610000019, name: "Нөөц", register: "ir105-106" },
@@ -47,7 +47,7 @@ const init = async () => {
 
     for (let yach in Tooluuruud.aranjin) {
         let res = await db_scada.sequelize.query(`
-            SELECT TOP 1000 [SYB_RNK]
+            SELECT TOP 10 [SYB_RNK]
            ,[N_OB]
            ,[N_FID]
            ,[N_GR_TY]
@@ -60,7 +60,7 @@ const init = async () => {
            ,[RASH_POLN]
            ,[IMPULSES]
        FROM [scada].[dbo].[Tooluur]
-       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2025-01-03 08:00' and '2025-01-03 08:00'
+       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2024-12-27' and '2025-01-10 23:00'
        order by DD_MM_YYYY desc`, {
             type: QueryTypes.SELECT,
         });
