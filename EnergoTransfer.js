@@ -112,10 +112,10 @@ const loadAranjinTooluur = async () => {
       });
 
       // ХТАЦ баазруу бичих
-      // await db_techno.sequelize.query(`
-      //     EXEC Sp_InsertLast72Hour_v112 
-      //       5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${N_INTER_RAS}, 1, 1, ${VAL}, 0, 0, 1, 30, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, 0
-      // `);
+      await db_techno.sequelize.query(`
+          EXEC Sp_InsertLast72Hour_v112 
+            5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${N_INTER_RAS}, 1, 1, ${VAL}, 0, 0, 1, 30, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, 0
+      `);
 
       console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
     }
