@@ -60,7 +60,7 @@ const init = async () => {
            ,[RASH_POLN]
            ,[IMPULSES]
        FROM [scada].[dbo].[Tooluur]
-       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2024-12-27' and '2025-01-13 23:59'
+       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2024-12-27 00:30' and '2025-01-20 23:00'
        order by DD_MM_YYYY desc`, {
             type: QueryTypes.SELECT,
         });
@@ -79,14 +79,14 @@ const init = async () => {
 
             await db_techno.sequelize.query(`
                exec Sp_InsertLast72Hour_v112 
-                 ${res[i]["SYB_RNK"]}, ${res[i]["N_OB"]} ,${res[i]["N_FID"]} , ${res[i]["N_GR_TY"]}, ${res[i]["N_SH"]} , '${date + " " + time}', ${res[i]["N_INTER_RAS"]} , 1, 1, ${res[i]["VAL"]}, 0, 0, 1, 30, ${res[i]["AK_SUM"]},  ${res[i]["POK_START"]}, ${res[i]["RASH_POLN"]}, 0 
+                 ${res[i]["SYB_RNK"]}, ${res[i]["N_OB"]} ,${res[i]["N_FID"]} , ${res[i]["N_GR_TY"]}, ${res[i]["N_SH"]} , '${date} 00:00', ${res[i]["N_INTER_RAS"]} , 1, 1, ${res[i]["VAL"]}, 0, 0, 1, 30, ${res[i]["AK_SUM"]},  ${res[i]["POK_START"]}, ${res[i]["RASH_POLN"]}, 0 
              `);
             // await db_techno.sequelize.query(`
             //    INSERT INTO  BUF_V_INT (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, POK_START, IMPULSES)
             //    VALUES  (5, 5 ,1 , 1, ${res[i]["N_SH"]} , '${date + " " + time}', ${res[i]["N_INTER_RAS"]}, ${res[i]["VAL"]}, ${res[i]["POK_START"]},0) 
             //  `);
 
-            console.log(`--${res[i]["N_SH"]}-- ${date} ${time} success... ${res[i]["N_INTER_RAS"]}`);
+            console.log(`--${res[i]["N_SH"]}-- '${date} 00:00' success... ${res[i]["N_INTER_RAS"]}`);
         }
     }
 }
