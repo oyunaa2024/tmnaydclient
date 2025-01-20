@@ -79,7 +79,7 @@ const init = async () => {
 
             await db_techno.sequelize.query(`
                exec Sp_InsertLast72Hour_v112 
-                 ${res[i]["SYB_RNK"]}, ${res[i]["N_OB"]} ,${res[i]["N_FID"]} , ${res[i]["N_GR_TY"]}, ${res[i]["N_SH"]} , '${date} 00:00', ${res[i]["N_INTER_RAS"]} , 1, 1, ${res[i]["VAL"]}, 0, 0, 1, 30, ${res[i]["AK_SUM"]},  ${res[i]["POK_START"]}, ${res[i]["RASH_POLN"]}, 0 
+                 ${res[i]["SYB_RNK"]}, ${res[i]["N_OB"]} ,${res[i]["N_FID"]} , ${res[i]["N_GR_TY"]}, ${res[i]["N_SH"]} , '${date} 00:00', ${res[i]["N_INTER_RAS"] == 48 ? 1 : res[i]["N_INTER_RAS"] + 1} , 1, 1, ${res[i]["VAL"]}, 0, 0, 1, 30, ${res[i]["AK_SUM"]},  ${res[i]["POK_START"]}, ${res[i]["RASH_POLN"]}, 0 
              `);
             // await db_techno.sequelize.query(`
             //    INSERT INTO  BUF_V_INT (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, POK_START, IMPULSES)

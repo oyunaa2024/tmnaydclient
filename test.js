@@ -63,7 +63,7 @@ const init = async () => {
            ,[RASH_POLN]
            ,[IMPULSES]
        FROM [scada].[dbo].[Tooluur]
-       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2024-12-27' and '2025-01-10 23:00'
+       where n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY between '2024-12-27' and '2025-01-20 23:00'
     order by DD_MM_YYYY desc`, {
             type: QueryTypes.SELECT,
         });
@@ -90,7 +90,7 @@ const init = async () => {
 
             await db_scada.sequelize.query(`
                UPDATE Tooluur
-               SET N_INTER_RAS = ${N_INTER_RAS}
+               SET N_INTER_RAS = ${res[i]["N_INTER_RAS"] == 48 ? 1 : res[i]["N_INTER_RAS"] + 1}
                WHERE n_sh = '${Tooluuruud.aranjin[yach].id}' and DD_MM_YYYY = '${date} ${time}'`);
 
 

@@ -103,7 +103,8 @@ const loadAranjinTooluur = async () => {
       let d1 = dayjs(now.format("YYYY-MM-DD"));
       let df1 = now.diff(d1, "minute");
 
-      const N_INTER_RAS = Math.floor(df1 / 30) == 0 ? 48 : Math.floor(df1 / 30);
+      // const N_INTER_RAS = Math.floor(df1 / 30) == 0 ? 48 : Math.floor(df1 / 30);
+      const N_INTER_RAS = Math.floor(df1 / 30) + 1;
 
       // ТМ баазруу бичих
       await db_scada.sequelize.query(`
