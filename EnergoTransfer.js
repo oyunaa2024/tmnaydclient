@@ -80,46 +80,48 @@ const loadAranjinTooluur = async () => {
       const POK_START = await ucomDevAranjin.read(Tooluuruud.aranjin[yach].register) / 100;  //Показания (Тоолуурын дэлгэц дээрх заалт)
       // const POK_START = 391.03;
 
-      redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: POK_START, d: dateTime }));
+      if (POK_START) {
+        redisClient.set(Tooluuruud.aranjin[yach].id, JSON.stringify({ v: POK_START, d: dateTime }));
 
-      const res = await db_scada.sequelize.query(`
+        const res = await db_scada.sequelize.query(`
         SELECT TOP 1 [POK_START] 
         FROM [TOOLUUR] 
         WHERE N_SH = ${Tooluuruud.aranjin[yach].id} 
         ORDER BY DD_MM_YYYY DESC`, {
-        type: QueryTypes.SELECT,
-      }); //Tuhain id tai tooluuryn omnoh zaaltiig SQL-ees avna.;
+          type: QueryTypes.SELECT,
+        }); //Tuhain id tai tooluuryn omnoh zaaltiig SQL-ees avna.;
 
-      if (!res.length) {
-        POK_START_BEFORE = 0;
-      } else {
-        POK_START_BEFORE = res[0].POK_START;
-      }
+        if (!res.length) {
+          POK_START_BEFORE = 0;
+        } else {
+          POK_START_BEFORE = res[0].POK_START;
+        }
 
-      AK_SUM = (POK_START - POK_START_BEFORE).toFixed(4); //Расход по сч хэргэлсэн энерги
-      RASH_POLN = (parseFloat(AK_SUM) * Tooluuruud.aranjin[yach].coefficientI * Tooluuruud.aranjin[yach].coefficientV).toFixed(4); //Энергия (Бодит хэргэлсэн энерги)
-      VAL = RASH_POLN;
+        AK_SUM = (POK_START - POK_START_BEFORE).toFixed(4); //Расход по сч хэргэлсэн энерги
+        RASH_POLN = (parseFloat(AK_SUM) * Tooluuruud.aranjin[yach].coefficientI * Tooluuruud.aranjin[yach].coefficientV).toFixed(4); //Энергия (Бодит хэргэлсэн энерги)
+        VAL = RASH_POLN;
 
-      let d1 = dayjs(now.format("YYYY-MM-DD"));
-      let df1 = now.diff(d1, "minute");
+        let d1 = dayjs(now.format("YYYY-MM-DD"));
+        let df1 = now.diff(d1, "minute");
 
-      // const N_INTER_RAS = Math.floor(df1 / 30) == 0 ? 48 : Math.floor(df1 / 30);
-      const N_INTER_RAS = Math.floor(df1 / 30) + 1;
+        // const N_INTER_RAS = Math.floor(df1 / 30) == 0 ? 48 : Math.floor(df1 / 30);
+        const N_INTER_RAS = Math.floor(df1 / 30) + 1;
 
-      // ТМ баазруу бичих
-      await db_scada.sequelize.query(`
+        // ТМ баазруу бичих
+        await db_scada.sequelize.query(`
           INSERT INTO [TOOLUUR] (SYB_RNK, N_OB, N_FID, N_GR_TY, N_SH, DD_MM_YYYY ,N_INTER_RAS, VAL, AK_SUM, POK_START, RASH_POLN, IMPULSES)
           VALUES (5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${dateTime}', ${N_INTER_RAS}, ${VAL}, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, NULL)`, {
-        type: QueryTypes.INSERT,
-      });
+          type: QueryTypes.INSERT,
+        });
 
-      // ХТАЦ баазруу бичих
-      await db_techno.sequelize.query(`
+        // ХТАЦ баазруу бичих
+        await db_techno.sequelize.query(`
           EXEC Sp_InsertLast72Hour_v112 
             5, 5, 1, 1, ${Tooluuruud.aranjin[yach].id}, '${date} 00:00', ${N_INTER_RAS}, 1, 1, ${VAL}, 0, 0, 1, 30, ${AK_SUM}, ${POK_START}, ${RASH_POLN}, 0
       `);
 
-      console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
+        console.log(`${Tooluuruud.aranjin[yach].id} дугаартай тоолуур амжилттай дуудагдав => ${dateTime}`);
+      }
     }
 
   }
