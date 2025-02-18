@@ -4,7 +4,7 @@ const utc = require("dayjs/plugin/utc");
 const { QueryTypes } = require('sequelize');
 
 dotenv.config({ path: "./config/config.env" });
-const db_scada = require("./config/db-mssql/scada");
+const db_test = require("./config/db-mssql/test");
 const db_metrolog = require("./config/db-mssql/metrolog");
 
 dayjs.extend(utc);
@@ -26,7 +26,7 @@ const init = async () => {
             console.log("DepID => ", i);
 
             for (let k = 0; k < res.length; k++) {
-                await db_scada.sequelize.query(`
+                await db_test.sequelize.query(`
                     INSERT INTO Metrolog_Plan_2025 (f1 ,f2, f3, f4, f5, f6, f7, f8, f9, f10, 
                                     f11, f12, f13, f14, f15, f16, f17, f18, f19, f20, 
                                     f21, f22, f23, f24, f25, f26, f27, f28, f29, f30)
@@ -80,13 +80,13 @@ init();
 
 
 
-// const db_scada = require("./config/db-mssql/scada");
+// const db_test = require("./config/db-mssql/scada");
 
-// const result = await req.db_scada.sequelize.query(
+// const result = await req.db_test.sequelize.query(
 //   `select ValueDate,${attr} FROM [Last_24Hour_AI_Graphic_m1] where ValueDate between :startDateTime and :endDateTime order by ValueDate`,
 // );
 
-// db_scada.FIXALARMS.bulkCreate([
+// db_test.FIXALARMS.bulkCreate([
 //     {
 //     ALM_NATIVETIMEIN: '2022-07-21 16:24:18.748',
 //     ALM_NATIVETIMELAST: '2022-07-21 16:24:18.748',
@@ -106,7 +106,7 @@ init();
 // ]).then(res => console.log("success...")).catch(err => console.log(err.message));
 
 
-// db_scada.Calculated_AI1.bulkCreate([
+// db_test.Calculated_AI1.bulkCreate([
 //     {
 //     ALM_TAGNAME: 'RP10_BBOD3',
 //     ALM_NATIVETIMELAST: '2022-07-21 16:24:18.748',
