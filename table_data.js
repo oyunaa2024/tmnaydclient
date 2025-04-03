@@ -55,7 +55,13 @@ const store = {
     lastValue: "",
     name: "ЦРП-5 яч18 ТП-512 Т1 Эрдмин (МВт.цаг)",
     scale: 1
-  }
+  },
+  KP5X_UCOM_F301_AI4: {
+    values: [],
+    lastValue: "",
+    name: "L Уровень резеруаре №3",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
