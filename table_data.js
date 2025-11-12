@@ -62,6 +62,70 @@ const store = {
     name: "L Уровень резеруаре №3",
     scale: 1
   },
+
+  KP3_PII_GOKA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKA P",
+    scale: 1
+  },
+  KP3_PII_GOKB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKB P",
+    scale: 1
+  },
+  KP3_PII_GOKG_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKG P",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKD P",
+    scale: 1
+  },
+
+  KP3_PII_KHYLA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KHYLA P",
+    scale: 1
+  },
+  KP3_PII_KHYLB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KHYLB P",
+    scale: 1
+  },
+
+  KP3_PII_OCHISTA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTA P",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTB P",
+    scale: 1
+  },
+
+  KP3_PII_KOTA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KOTA P",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KOTB P",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
