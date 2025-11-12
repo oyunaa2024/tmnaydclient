@@ -126,6 +126,19 @@ const store = {
     name: "KOTB P",
     scale: 1
   },
+
+  KP3_PII_KARIERA_AI1: {
+    values: [],
+    lastValue: "",
+    name: "KARIERA P",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI1: {
+    values: [],
+    lastValue: "",
+    name: "KARIERB P",
+    scale: 1
+  },
 }
 
 const id = makeID(20);
