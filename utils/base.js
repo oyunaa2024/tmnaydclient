@@ -44,11 +44,8 @@ exports.tags = [
     "KP2_AI37",
     "KP2_AI38",
     "KP2_AI39",
-<<<<<<< HEAD
     "KP21_AI1",
     "KP21_AI2",
-=======
->>>>>>> 3a7b6b053846b6e20daddc111b86890be914fcee
     "KP3_AI1",
     "KP3_AI2",
     "KP3_AI3",
