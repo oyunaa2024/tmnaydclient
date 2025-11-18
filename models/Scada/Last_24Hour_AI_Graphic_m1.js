@@ -192,6 +192,7 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.FLOAT,
         allowNull: true,
       },
+<<<<<<< HEAD
       KP21_AI1: {
         type: DataTypes.FLOAT,
         allowNull: true,
@@ -200,6 +201,8 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.FLOAT,
         allowNull: true,
       },
+=======
+>>>>>>> 3a7b6b053846b6e20daddc111b86890be914fcee
       KP2_M60_MSHA1_AI1: {
         type: DataTypes.FLOAT,
         allowNull: true,
