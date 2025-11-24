@@ -69,10 +69,58 @@ const store = {
     name: "GOKA P",
     scale: 1
   },
+  KP3_PII_GOKA_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOKA S",
+    scale: 1
+  },
+  KP3_PII_GOKA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKA Q",
+    scale: 1
+  },
+  KP3_PII_GOKA_AI2: {
+    values: [],
+    lastValue: "",
+    name: "GOKA Cos",
+    scale: 1
+  },
+  KP3_PII_GOKA_AI10: {
+    values: [],
+    lastValue: "",
+    name: "GOKA U",
+    scale: 1
+  },
   KP3_PII_GOKB_AI1: {
     values: [],
     lastValue: "",
     name: "GOKB P",
+    scale: 1
+  },
+    KP3_PII_GOKB_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOKB S",
+    scale: 1
+  },
+  KP3_PII_GOKB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKB Q",
+    scale: 1
+  },
+  KP3_PII_GOKB_AI2: {
+    values: [],
+    lastValue: "",
+    name: "GOKB Cos",
+    scale: 1
+  },
+  KP3_PII_GOKB_AI10: {
+    values: [],
+    lastValue: "",
+    name: "GOKB U",
     scale: 1
   },
   KP3_PII_GOKG_AI1: {
@@ -81,10 +129,58 @@ const store = {
     name: "GOKG P",
     scale: 1
   },
+  KP3_PII_GOKG_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOKG S",
+    scale: 1
+  },
+  KP3_PII_GOKG_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKG Q",
+    scale: 1
+  },
+  KP3_PII_GOKG_AI2: {
+    values: [],
+    lastValue: "",
+    name: "GOKG Cos",
+    scale: 1
+  },
+  KP3_PII_GOKG_AI10: {
+    values: [],
+    lastValue: "",
+    name: "GOKG U",
+    scale: 1
+  },
   KP3_PII_GOKD_AI1: {
     values: [],
     lastValue: "",
     name: "GOKD P",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOKD S",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI5: {
+    values: [],
+    lastValue: "",
+    name: "GOKD Q",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI2: {
+    values: [],
+    lastValue: "",
+    name: "GOKD Cos",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI10: {
+    values: [],
+    lastValue: "",
+    name: "GOKD U",
     scale: 1
   },
 
@@ -94,10 +190,58 @@ const store = {
     name: "KHYLA P",
     scale: 1
   },
+  KP3_PII_KHYLA_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GKHYLA S",
+    scale: 1
+  },
+  KP3_PII_GKHYLA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KHYLA Q",
+    scale: 1
+  },
+  KP3_PII_KHYLA_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KHYLA Cos",
+    scale: 1
+  },
+  KP3_PII_KHYLA_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KHYLA U",
+    scale: 1
+  },
   KP3_PII_KHYLB_AI1: {
     values: [],
     lastValue: "",
     name: "KHYLB P",
+    scale: 1
+  },
+  KP3_PII_KHYLB_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GKHYLB S",
+    scale: 1
+  },
+  KP3_PII_GKHYLB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KHYLB Q",
+    scale: 1
+  },
+  KP3_PII_KHYLB_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KHYLB Cos",
+    scale: 1
+  },
+  KP3_PII_KHYLB_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KHYLB U",
     scale: 1
   },
 
@@ -107,10 +251,58 @@ const store = {
     name: "OCHISTA P",
     scale: 1
   },
+  KP3_PII_OCHISTA_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOCHISTA S",
+    scale: 1
+  },
+  KP3_PII_OCHISTA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTA Q",
+    scale: 1
+  },
+  KP3_PII_OCHISTA_AI2: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTA Cos",
+    scale: 1
+  },
+  KP3_PII_OCHISTA_AI10: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTA U",
+    scale: 1
+  },
   KP3_PII_OCHISTB_AI1: {
     values: [],
     lastValue: "",
     name: "OCHISTB P",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI6: {
+    values: [],
+    lastValue: "",
+    name: "GOCHISTB S",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTB Q",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI2: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTB Cos",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI10: {
+    values: [],
+    lastValue: "",
+    name: "OCHISTB U",
     scale: 1
   },
 
@@ -120,10 +312,58 @@ const store = {
     name: "KOTA P",
     scale: 1
   },
+  KP3_PII_KOTA_AI6: {
+    values: [],
+    lastValue: "",
+    name: "KOTA S",
+    scale: 1
+  },
+  KP3_PII_KOTA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KOTA Q",
+    scale: 1
+  },
+  KP3_PII_KOTA_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KOTA Cos",
+    scale: 1
+  },
+  KP3_PII_KOTA_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KOTA U",
+    scale: 1
+  },
   KP3_PII_KOTB_AI1: {
     values: [],
     lastValue: "",
     name: "KOTB P",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI6: {
+    values: [],
+    lastValue: "",
+    name: "KOTB S",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KOTB Q",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KOTB Cos",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KOTB U",
     scale: 1
   },
 
@@ -133,10 +373,58 @@ const store = {
     name: "KARIERA P",
     scale: 1
   },
+  KP3_PII_KARIERA_AI6: {
+    values: [],
+    lastValue: "",
+    name: "KARIERA S",
+    scale: 1
+  },
+  KP3_PII_KARIERA_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KARIERA Q",
+    scale: 1
+  },
+  KP3_PII_KARIERA_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KARIERA Cos",
+    scale: 1
+  },
+  KP3_PII_KARIERA_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KARIERA U",
+    scale: 1
+  },
   KP3_PII_KARIERB_AI1: {
     values: [],
     lastValue: "",
     name: "KARIERB P",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI6: {
+    values: [],
+    lastValue: "",
+    name: "KARIERB S",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI5: {
+    values: [],
+    lastValue: "",
+    name: "KARIERB Q",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI2: {
+    values: [],
+    lastValue: "",
+    name: "KARIERB Cos",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI10: {
+    values: [],
+    lastValue: "",
+    name: "KARIERB U",
     scale: 1
   },
 }
