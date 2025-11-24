@@ -193,10 +193,10 @@ const store = {
   KP3_PII_KHYLA_AI6: {
     values: [],
     lastValue: "",
-    name: "GKHYLA S",
+    name: "KHYLA S",
     scale: 1
   },
-  KP3_PII_GKHYLA_AI5: {
+  KP3_PII_KHYLA_AI5: {
     values: [],
     lastValue: "",
     name: "KHYLA Q",
@@ -223,10 +223,10 @@ const store = {
   KP3_PII_KHYLB_AI6: {
     values: [],
     lastValue: "",
-    name: "GKHYLB S",
+    name: "KHYLB S",
     scale: 1
   },
-  KP3_PII_GKHYLB_AI5: {
+  KP3_PII_KHYLB_AI5: {
     values: [],
     lastValue: "",
     name: "KHYLB Q",
