@@ -14,10 +14,82 @@ const store = {
     name: "ЦРП-5 яч1 Ор-1 (МВт.цаг)",
     scale: 1
   },
+  KP11_PII_B1_AI3: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Бүрэн чадал Ic (МВа)",
+    scale: 1
+  },
+  KP11_PII_B1_AI2: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Хуурмаг чадал Ic (МВар)",
+    scale: 1
+  },
+  KP11_PII_B1_AI6: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Гүйдэл Фаз А Ic (А)",
+    scale: 1
+  },
+  KP11_PII_B1_AI7: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Давтамж Ic (Гц)",
+    scale: 1
+  },
+  KP11_PII_B1_AI4: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Cosf Ic (Гц)",
+    scale: 1
+  },
+  KP11_PII_B1_AI5: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Хүчдэл Ic (В)",
+    scale: 1
+  },
   KP11_PII_B2_AI1: {
     values: [],
     lastValue: "",
     name: "ЦРП-5 яч31 Ор-2 (МВт.цаг)",
+    scale: 1
+  },
+  KP11_PII_B2_AI3: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Бүрэн чадал IIc (МВа)",
+    scale: 1
+  },
+  KP11_PII_B2_AI2: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Хуурмаг чадал IIc (МВар)",
+    scale: 1
+  },
+  KP11_PII_B2_AI6: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Гүйдэл Фаз А IIc (А)",
+    scale: 1
+  },
+  KP11_PII_B2_AI7: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Давтамж IIc (Гц)",
+    scale: 1
+  },
+  KP11_PII_B2_AI4: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Cosf IIc (Гц)",
+    scale: 1
+  },
+  KP11_PII_B2_AI5: {
+    values: [],
+    lastValue: "",
+    name: "ЦРП-5 яч1 Хүчдэл IIc (В)",
     scale: 1
   },
   KP11_AI12: {
