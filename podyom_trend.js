@@ -338,7 +338,79 @@ const store = {
     name: "Pod 4 section 1",
     scale: 1
   },
+  KP31_PII_B1_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
+  KP31_PII_B1_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
+  KP31_PII_B1_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
+  KP31_PII_B1_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
+  KP31_PII_B1_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
+  KP31_PII_B1_AI7: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 1",
+    scale: 1
+  },
   KP31_PII_B2_AI1: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 4 section 2",
+    scale: 1
+  },
+  KP31_PII_B2_AI7: {
     values: [],
     lastValue: "",
     name: "Pod 4 section 2",
@@ -350,19 +422,163 @@ const store = {
     name: "Pod 3 section 1",
     scale: 1
   },
+  KP30_PII_B1_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
+  KP30_PII_B1_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
+  KP30_PII_B1_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
+  KP30_PII_B1_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
+  KP30_PII_B1_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
+  KP30_PII_B1_AI7: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 1",
+    scale: 1
+  },
   KP30_PII_B2_AI1: {
     values: [],
     lastValue: "",
     name: "Pod 3 section 2",
     scale: 1
   },
-  KP29_PII_B1_AI1: {
+  KP30_PII_B2_AI1: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP30_PII_B2_AI7: {
+    values: [],
+    lastValue: "",
+    name: "Pod 3 section 2",
+    scale: 1
+  },
+  KP29_PII_B1_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 1",
+    scale: 1
+  },
+  KP29_PII_B1_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 1",
+    scale: 1
+  },
+  KP29_PII_B1_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 1",
+    scale: 1
+  },
+  KP29_PII_B1_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 1",
+    scale: 1
+  },
+  KP29_PII_B1_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 1",
+    scale: 1
+  },
+  KP29_PII_B1_AI7: {
     values: [],
     lastValue: "",
     name: "Pod 2 section 1",
     scale: 1
   },
   KP29_PII_B2_AI1: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI2: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI3: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI4: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI5: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI6: {
+    values: [],
+    lastValue: "",
+    name: "Pod 2 section 2",
+    scale: 1
+  },
+  KP29_PII_B2_AI7: {
     values: [],
     lastValue: "",
     name: "Pod 2 section 2",
