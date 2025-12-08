@@ -159,6 +159,12 @@ const store = {
     name: "GOKA Cos",
     scale: 1
   },
+  KP3_PII_GOKA_AI3: {
+    values: [],
+    lastValue: "",
+    name: "GOKA I",
+    scale: 1
+  },
   KP3_PII_GOKA_AI10: {
     values: [],
     lastValue: "",
@@ -187,6 +193,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "GOKB Cos",
+    scale: 1
+  },
+  KP3_PII_GOKB_AI3: {
+    values: [],
+    lastValue: "",
+    name: "GOKB I",
     scale: 1
   },
   KP3_PII_GOKB_AI10: {
@@ -219,6 +231,12 @@ const store = {
     name: "GOKG Cos",
     scale: 1
   },
+  KP3_PII_GOKG_AI3: {
+    values: [],
+    lastValue: "",
+    name: "GOKG I",
+    scale: 1
+  },
   KP3_PII_GOKG_AI10: {
     values: [],
     lastValue: "",
@@ -247,6 +265,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "GOKD Cos",
+    scale: 1
+  },
+  KP3_PII_GOKD_AI3: {
+    values: [],
+    lastValue: "",
+    name: "GOKD I",
     scale: 1
   },
   KP3_PII_GOKD_AI10: {
@@ -280,6 +304,12 @@ const store = {
     name: "KHYLA Cos",
     scale: 1
   },
+  KP3_PII_KHYLA_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KHYLA I",
+    scale: 1
+  },
   KP3_PII_KHYLA_AI10: {
     values: [],
     lastValue: "",
@@ -308,6 +338,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "KHYLB Cos",
+    scale: 1
+  },
+  KP3_PII_KHYLB_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KHYLB I",
     scale: 1
   },
   KP3_PII_KHYLB_AI10: {
@@ -341,6 +377,12 @@ const store = {
     name: "OCHISTA Cos",
     scale: 1
   },
+  KP3_PII_OCHISTA_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOCHISTA I",
+    scale: 1
+  },
   KP3_PII_OCHISTA_AI10: {
     values: [],
     lastValue: "",
@@ -356,7 +398,7 @@ const store = {
   KP3_PII_OCHISTB_AI6: {
     values: [],
     lastValue: "",
-    name: "GOCHISTB S",
+    name: "OCHISTB S",
     scale: 1
   },
   KP3_PII_OCHISTB_AI5: {
@@ -369,6 +411,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "OCHISTB Cos",
+    scale: 1
+  },
+  KP3_PII_OCHISTB_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOCHISTB I",
     scale: 1
   },
   KP3_PII_OCHISTB_AI10: {
@@ -402,6 +450,12 @@ const store = {
     name: "KOTA Cos",
     scale: 1
   },
+  KP3_PII_KOTA_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOTA I",
+    scale: 1
+  },
   KP3_PII_KOTA_AI10: {
     values: [],
     lastValue: "",
@@ -430,6 +484,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "KOTB Cos",
+    scale: 1
+  },
+  KP3_PII_KOTB_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOTB I",
     scale: 1
   },
   KP3_PII_KOTB_AI10: {
@@ -463,6 +523,12 @@ const store = {
     name: "KARIERA Cos",
     scale: 1
   },
+  KP3_PII_KARIERA_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOTA I",
+    scale: 1
+  },
   KP3_PII_KARIERA_AI10: {
     values: [],
     lastValue: "",
@@ -491,6 +557,12 @@ const store = {
     values: [],
     lastValue: "",
     name: "KARIERB Cos",
+    scale: 1
+  },
+  KP3_PII_KARIERB_AI3: {
+    values: [],
+    lastValue: "",
+    name: "KOTB I",
     scale: 1
   },
   KP3_PII_KARIERB_AI10: {
