@@ -524,12 +524,6 @@ const store = {
     name: "Pod 2 section 1",
     scale: 1
   },
-  KP29_PII_B1_AI5: {
-    values: [],
-    lastValue: "",
-    name: "Pod 2 section 1",
-    scale: 1
-  },
   KP29_PII_B1_AI6: {
     values: [],
     lastValue: "",
@@ -561,12 +555,6 @@ const store = {
     scale: 1
   },
   KP29_PII_B2_AI4: {
-    values: [],
-    lastValue: "",
-    name: "Pod 2 section 2",
-    scale: 1
-  },
-  KP29_PII_B2_AI5: {
     values: [],
     lastValue: "",
     name: "Pod 2 section 2",
@@ -695,7 +683,7 @@ async function init() {
 
       // Хүснэгтийн бодолтонд оруулах тагийг энд оруулна. Энд оруулсан тагууд FIXALARMS табелрүү орно.
       // [[...], [...]]
-      const arr = ['SIM31_N1_DBD24', 'KP29_AI7', 'KP29_AI4', 'KP29_AI3', 'KP31_PII_B1_AI1', 'KP31_PII_B1_AI2', 'KP31_PII_B1_AI3', 'KP31_PII_B1_AI4',  'KP31_PII_B1_AI5', 'KP31_PII_B1_AI6', 'KP31_PII_B1_AI7', 'KP31_PII_B2_AI1', 'KP31_PII_B2_AI2', 'KP31_PII_B2_AI3', 'KP31_PII_B2_AI4', 'KP31_PII_B2_AI5', 'KP31_PII_B2_AI6', 'KP31_PII_B2_AI7', 'KP30_PII_B1_AI1', 'KP30_PII_B1_AI2', 'KP30_PII_B1_AI3', 'KP30_PII_B1_AI4', 'KP30_PII_B1_AI5', 'KP30_PII_B1_AI6', 'KP30_PII_B1_AI7', 'KP30_PII_B2_AI1', 'KP30_PII_B2_AI2', 'KP30_PII_B2_AI3', 'KP30_PII_B2_AI4', 'KP30_PII_B2_AI5', 'KP30_PII_B2_AI6', 'KP30_PII_B2_AI7', 'KP29_PII_B1_AI1', 'KP29_PII_B1_AI2', 'KP29_PII_B1_AI3', 'KP29_PII_B1_AI4', 'KP29_PII_B1_AI5', 'KP29_PII_B1_AI6', 'KP29_PII_B1_AI7', 'KP29_PII_B2_AI1', 'KP29_PII_B2_AI2', 'KP29_PII_B2_AI3', 'KP29_PII_B2_AI4', 'KP29_PII_B2_AI5', 'KP29_PII_B2_AI6', 'KP29_PII_B2_AI7', 'KP28_AI18', 'KP28_AI17', 'SIM19_AI14', 'SIM19_AI15', 'SIM19_AI16'].map(tag => {
+      const arr = ['SIM31_N1_DBD24', 'KP29_AI7', 'KP29_AI4', 'KP29_AI3', 'KP31_PII_B1_AI1', 'KP31_PII_B1_AI2', 'KP31_PII_B1_AI3', 'KP31_PII_B1_AI4',  'KP31_PII_B1_AI5', 'KP31_PII_B1_AI6', 'KP31_PII_B1_AI7', 'KP31_PII_B2_AI1', 'KP31_PII_B2_AI2', 'KP31_PII_B2_AI3', 'KP31_PII_B2_AI4', 'KP31_PII_B2_AI5', 'KP31_PII_B2_AI6', 'KP31_PII_B2_AI7', 'KP30_PII_B1_AI1', 'KP30_PII_B1_AI2', 'KP30_PII_B1_AI3', 'KP30_PII_B1_AI4', 'KP30_PII_B1_AI5', 'KP30_PII_B1_AI6', 'KP30_PII_B1_AI7', 'KP30_PII_B2_AI1', 'KP30_PII_B2_AI2', 'KP30_PII_B2_AI3', 'KP30_PII_B2_AI4', 'KP30_PII_B2_AI5', 'KP30_PII_B2_AI6', 'KP30_PII_B2_AI7', 'KP29_PII_B1_AI1', 'KP29_PII_B1_AI2', 'KP29_PII_B1_AI3', 'KP29_PII_B1_AI4', 'KP29_PII_B1_AI6', 'KP29_PII_B1_AI7', 'KP29_PII_B2_AI1', 'KP29_PII_B2_AI2', 'KP29_PII_B2_AI3', 'KP29_PII_B2_AI4', 'KP29_PII_B2_AI6', 'KP29_PII_B2_AI7', 'KP28_AI18', 'KP28_AI17', 'SIM19_AI14', 'SIM19_AI15', 'SIM19_AI16'].map(tag => {
         if (store[tag].values.length == 0) {
           return [{
             ALM_TAGNAME: tag,
