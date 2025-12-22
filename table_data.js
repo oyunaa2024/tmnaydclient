@@ -128,6 +128,18 @@ const store = {
     name: "ЦРП-5 яч18 ТП-512 Т1 Эрдмин (МВт.цаг)",
     scale: 1
   },
+  KP4_AI7: {
+    values: [],
+    lastValue: "",
+    name: " АТБ Т-1-ийн чадал (МВт.цаг)",
+    scale: 1
+  },
+  KP4_AI8: {
+    values: [],
+    lastValue: "",
+    name: " АТБ Т-2-ийн чадал (МВт.цаг)",
+    scale: 1
+  },
   KP5X_UCOM_F301_AI4: {
     values: [],
     lastValue: "",
